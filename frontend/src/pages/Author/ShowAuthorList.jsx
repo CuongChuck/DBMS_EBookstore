@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const ShowAuthorList = () => {
-    const [authors, setAuthors] = useState([]);
+    const [items, setItems] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
         axios
             .get("http://localhost:8080/author")
             .then((response) => {
-                setAuthors(response.data.data);
+                setItems(response.data.data);
             })
             .catch((err) => {
                 console.error(err);
@@ -17,23 +17,41 @@ const ShowAuthorList = () => {
     }, []);
     return (
         <div>
-            <button onClick={() => {navigate('/author/admin/add')}}>Add publisher</button>
-            <h2>Publisher List</h2>
+            <ul>
+                <li><Link to={'/admin'} >Home</Link></li>
+            </ul>
+            <button onClick={() => {navigate('/author/admin/add')}}>Add author</button>
+            <h2>Author List</h2>
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Location</th>
+                        <th>Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {publishers.map((publisher) => {
+                    {items.map((item) => {
                         return (
-                            <tr key={publisher.PublisherID}>
-                                <td>{publisher.PublisherID}</td>
-                                <td>{publisher.Name}</td>
-                                <td>{publisher.Location}</td>
+                            <tr key={item.AuthorID}>
+                                <td>{item.AuthorID}</td>
+                                <td>{item.Name}</td>
+                                <td>
+                                    <button
+                                        onClick={() => {
+                                            navigate(`/author/admin/edit/${item.AuthorID}`
+                                        )}}
+                                    >
+                                            Edit
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            navigate(`/author/admin/delete/${item.AuthorID}`
+                                        )}}
+                                    >
+                                            Delete
+                                    </button>
+                                </td>
                             </tr>
                         )
                     })}
