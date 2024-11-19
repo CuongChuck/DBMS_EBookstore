@@ -43,12 +43,12 @@ publisherRouter.get('/', async (request, response) => {
     }
 });
 
-// Route for SELECT a publisher based on name
-publisherRouter.get('/:name', async (request, response) => {
+// Route for SELECT a publisher based on id
+publisherRouter.get('/:id', async (request, response) => {
     try {
-        const sql = `SELECT * FROM Publisher WHERE Name=?`;
-        const { name } = request.params;
-        mysqlConnection.query(sql, [name], (err, results, fields) => {
+        const sql = `SELECT * FROM Publisher WHERE PublisherID=?`;
+        const { id } = request.params;
+        mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err) return console.error(err.message);
             console.log(results);
             return response.status(200).json(results);
@@ -59,7 +59,7 @@ publisherRouter.get('/:name', async (request, response) => {
     }
 });
 
-// Route for Update a Publisher
+// Route for Update a Publisher based on ID
 publisherRouter.put('/edit/:id', async (request, response) => {
     try {
         if (!request.body.name || !request.body.location) {
@@ -80,14 +80,14 @@ publisherRouter.put('/edit/:id', async (request, response) => {
     }
 });
 
-// Route for Delete a publisher
-publisherRouter.delete('/delete/:name', async (request, response) => {
+// Route for Delete a publisher based on ID
+publisherRouter.delete('/delete/:id', async (request, response) => {
     try {
-        const { name } = request.params;
-        const sql = `DELETE FROM Publisher WHERE Name = ?`;
-        mysqlConnection.query(sql, [name], (err, results, fields) => {
+        const { id } = request.params;
+        const sql = `DELETE FROM Publisher WHERE PublisherID = ?`;
+        mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Publisher not found"});
-            return response.status(200).send({message: `Publisher ${name} is deleted`});
+            return response.status(200).send({message: `Publisher ${id} is deleted`});
         });
     } catch (err) {
         console.error(err);

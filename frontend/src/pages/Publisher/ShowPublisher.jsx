@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 
 const ShowPublisher = () => {
     const [publisher, setPublisher] = useState({});
-    const { name } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/publisher/${name}`)
+            .get(`http://localhost:8080/publisher/${id}`)
             .then((response) => {
                 setPublisher(response.data[0]);
             })

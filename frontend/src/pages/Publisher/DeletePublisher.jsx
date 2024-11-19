@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const DeletePublisher = () => {
-    const { name } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const handleDeletePublisher = () => {
         axios
-            .delete(`http://localhost:8080/publisher/delete/${name}`)
+            .delete(`http://localhost:8080/publisher/delete/${id}`)
             .then(() => {
                 navigate('/publisher/list');
             })
@@ -19,7 +19,7 @@ const DeletePublisher = () => {
 
     return (
         <div>
-            <h2>Are you sure you want to delete publisher {name}</h2>
+            <h2>Are you sure you want to delete publisher {id}</h2>
             <button onClick={handleDeletePublisher}>Yes</button>
             <button onClick={() => {navigate('/publisher/list')}}>Cancel</button>
         </div>
