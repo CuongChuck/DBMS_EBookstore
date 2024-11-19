@@ -1,6 +1,7 @@
 import express from "express";
 import { PORT, mysqlConnection } from "./config.js";
 import publisherRouter from "./routes/publisherRouter.js";
+import authorRouter from "./routes/authorRouter.js";
 import cors from 'cors';
 
 const app = express();
@@ -31,3 +32,4 @@ mysqlConnection.connect((err) => {
 });
 
 app.use('/publisher', publisherRouter);
+app.use('/author', authorRouter);
