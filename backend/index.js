@@ -5,6 +5,7 @@ import publisherRouter from "./routes/publisherRouter.js";
 import authorRouter from "./routes/authorRouter.js";
 import authRouter from "./routes/authRouter.js";
 import translatorRouter from "./routes/translatorRouter.js";
+import categoryRouter from "./routes/categoryRouter.js";
 
 const app = express();
 
@@ -36,4 +37,5 @@ mysqlConnection.connect((err) => {
 app.use('/publisher', publisherRouter);
 app.use('/author', authorRouter);
 app.use('/translator', translatorRouter);
+app.use('/category', categoryRouter);
 app.use('/', authRouter);
