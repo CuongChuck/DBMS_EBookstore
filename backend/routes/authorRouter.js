@@ -11,8 +11,8 @@ authorRouter.post('/add', async (request, response) => {
                 message: "Send all required fields: name"
             });
         }
-        const sql = `INSERT INTO Author(Name) VALUES(?)`;
-        const values = [request.body.name];
+        const sql = `INSERT INTO Author(Name, Description) VALUES(?,?)`;
+        const values = [request.body.name, request.body.description];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.err(err.message);
             return response.status(201).send({
@@ -41,21 +41,6 @@ authorRouter.get('/', async (request, response) => {
     }
 });
 
-// Route for SELECT a author based on id
-authorRouter.get('/:id', async (request, response) => {
-    try {
-        const sql = `SELECT * FROM Author WHERE AuthorID=?`;
-        const { id } = request.params;
-        mysqlConnection.query(sql, [id], (err, results, fields) => {
-            if (err) return console.error(err.message);
-            return response.status(200).json(results);
-        });
-    } catch (err) {
-        console.error(err.message);
-        response.status(500).send({message: err.message});
-    }
-});
-
 // Route for Update a author based on ID
 authorRouter.put('/edit/:id', async (request, response) => {
     try {
@@ -65,8 +50,8 @@ authorRouter.put('/edit/:id', async (request, response) => {
             });
         }
         const { id } = request.params;
-        const sql = `UPDATE Author SET Name = ? WHERE AuthorID = ${id}`;
-        const data = [request.body.name];
+        const sql = `UPDATE Author SET Name = ?, Description = ? WHERE AuthorID = ${id}`;
+        const data = [request.body.name, request.body.description];
         mysqlConnection.query(sql, data, (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Author not found"});
             return response.status(200).send({message: `Author ${id} is updated`});
