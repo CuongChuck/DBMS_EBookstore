@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
-const ShowAuthorList = () => {
+const ShowTranslatorList = () => {
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
         axios
-            .get("http://localhost:8080/author")
+            .get("http://localhost:8080/translator")
             .then((response) => {
                 setItems(response.data.data);
             })
@@ -20,8 +20,8 @@ const ShowAuthorList = () => {
             <ul>
                 <li><Link to={'/admin'} >Home</Link></li>
             </ul>
-            <button onClick={() => {navigate('/author/admin/add')}}>Add author</button>
-            <h2>Author List</h2>
+            <button onClick={() => {navigate('/translator/admin/add')}}>Add translator</button>
+            <h2>Translator List</h2>
             <table>
                 <thead>
                     <tr>
@@ -34,21 +34,21 @@ const ShowAuthorList = () => {
                 <tbody>
                     {items.map((item) => {
                         return (
-                            <tr key={item.AuthorID}>
-                                <td>{item.AuthorID}</td>
+                            <tr key={item.TranslatorID}>
+                                <td>{item.TranslatorID}</td>
                                 <td>{item.Name}</td>
                                 <td>{item.Description}</td>
                                 <td>
                                     <button
                                         onClick={() => {
-                                            navigate(`/author/admin/edit/${item.AuthorID}`
+                                            navigate(`/translator/admin/edit/${item.TranslatorID}`
                                         )}}
                                     >
                                             Edit
                                     </button>
                                     <button
                                         onClick={() => {
-                                            navigate(`/author/admin/delete/${item.AuthorID}`
+                                            navigate(`/translator/admin/delete/${item.TranslatorID}`
                                         )}}
                                     >
                                             Delete
@@ -63,4 +63,4 @@ const ShowAuthorList = () => {
     )
 }
 
-export default ShowAuthorList
+export default ShowTranslatorList

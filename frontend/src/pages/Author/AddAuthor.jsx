@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 const AddAuthor = () => {
     const [name, setName] = useState('');
+    const [description, setDes] = useState('');
     const navigate = useNavigate();
 
     const handleAddAuthor = () => {
-        const data = { name };
+        const data = { name, description };
         axios
             .post("http://localhost:8080/author/add", data)
             .then(() => {
@@ -28,6 +29,14 @@ const AddAuthor = () => {
                     type='text'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Description</label>
+                <input
+                    type='text'
+                    value={description}
+                    onChange={(e) => setDes(e.target.value)}
                 />
             </div>
             <button onClick={handleAddAuthor}>Save</button>
