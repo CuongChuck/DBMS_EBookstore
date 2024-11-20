@@ -10,6 +10,7 @@ const Admin = () => {
                 <li><Link to={'/publisher/list'}>Publisher</Link></li>
                 <li><Link to={'/author/list'}>Author</Link></li>
                 <li><Link to={'/translator/list'}>Translator</Link></li>
+                <li><Link to={'/category/list'}>Category</Link></li>
             </ul>
         </div>
     )
