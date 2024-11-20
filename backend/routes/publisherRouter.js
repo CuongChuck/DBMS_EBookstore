@@ -15,7 +15,6 @@ publisherRouter.post('/add', async (request, response) => {
         const values = [request.body.name, request.body.location];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.err(err.message);
-            console.log("PublisherID:" + results.PublisherID);
             return response.status(201).send({
                 message: `Publisher ${values[0]} is inserted`
             });
@@ -32,7 +31,6 @@ publisherRouter.get('/', async (request, response) => {
         const sql = `SELECT * FROM Publisher`;
         mysqlConnection.query(sql, (err, results, fields) => {
             if (err) return console.error(err.message);
-            console.log(results);
             return response.status(200).json({
                 data: results
             });
@@ -50,7 +48,6 @@ publisherRouter.get('/:id', async (request, response) => {
         const { id } = request.params;
         mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err) return console.error(err.message);
-            console.log(results);
             return response.status(200).json(results);
         });
     } catch (err) {
