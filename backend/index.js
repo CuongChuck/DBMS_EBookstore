@@ -1,8 +1,10 @@
 import express from "express";
 import { PORT, mysqlConnection } from "./config.js";
+import cors from 'cors';
 import publisherRouter from "./routes/publisherRouter.js";
 import authorRouter from "./routes/authorRouter.js";
-import cors from 'cors';
+import authRouter from "./routes/authRouter.js";
+import translatorRouter from "./routes/translatorRouter.js";
 
 const app = express();
 
@@ -33,3 +35,5 @@ mysqlConnection.connect((err) => {
 
 app.use('/publisher', publisherRouter);
 app.use('/author', authorRouter);
+app.use('/translator', translatorRouter);
+app.use('/', authRouter);
