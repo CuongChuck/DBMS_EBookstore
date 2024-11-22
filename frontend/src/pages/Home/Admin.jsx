@@ -9,7 +9,7 @@ const Admin = () => {
         axios
             .get('http://localhost:8080/')
             .then((response) => {
-                if (response.data.status === "Success") setAuth(true);
+                if (response.data.status === "Admin Success") setAuth(true);
                 else setAuth(false);
             })
 
