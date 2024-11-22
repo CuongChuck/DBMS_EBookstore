@@ -12,7 +12,7 @@ const AdminAuth = () => {
         axios
             .post('http://localhost:8080/login', data)
             .then((response) => {
-                if (response.data.status === "Success") navigate('/admin');
+                if (response.data.status === "Admin Success") navigate('/admin');
                 else alert("Username or password is not correct");
             })
             .catch((err) => {
