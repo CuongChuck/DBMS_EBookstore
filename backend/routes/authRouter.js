@@ -10,14 +10,42 @@ const verifyAdmin = (request, response, next) => {
     else {
         jwt.verify(token, "jwt-secret-key", (err, decoded) => {
             if (err) return response.json({message: "Authentication Error."});
-            else next();
+            const id = decoded.id;
+            const sql = `SELECT * FROM User WHERE UserID = ${id}`;
+            mysqlConnection.query(sql, [true], (err, results, fields) => {
+                if (err) return response.status(500).json({message: err.message});
+                if (results[0].Role == 1) return response.json({message: "Authentication Error."});
+            });
+            next();
+        });
+    }
+}
+
+const verifyUser = (request, response, next) => {
+    const token = request.cookies.token;
+    if (!token) return response.json({message: "Token needed"});
+    else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if (err) return response.json({message: "Authentication Error."});
+            const id = decoded.id;
+            const sql = `SELECT * FROM User WHERE UserID = ${id}`;
+            mysqlConnection.query(sql, [true], (err, results, fields) => {
+                if (err) return response.status(500).json({message: err.message});
+                if (results[0].Role == 0) return response.json({message: "Authentication Error."});
+            });
+            next();
         });
     }
 }
 
 // Route for confirm log in
 authRouter.get('/', verifyAdmin, (request, response) => {
-    return response.json({status: "Success"});
+    return response.json({status: "Admin Success"});
+});
+
+// Route for confirm log in
+authRouter.get('/user', verifyUser, (request, response) => {
+    return response.json({status: "User Success"});
 });
 
 // Route for logout
@@ -84,7 +112,8 @@ authRouter.post('/login', async (request, response) => {
                 const id = results[0].UserID;
                 const token = jwt.sign({id}, "jwt-secret-key", {expiresIn: '1d'});
                 response.cookie('token', token);
-                return response.status(200).json({status: "Success"});
+                if (results[0].Role == 0) return response.status(200).json({status: "Admin Success"});
+                else return response.status(200).json({status: "User Success"});
             }
         });
     } catch (err) {

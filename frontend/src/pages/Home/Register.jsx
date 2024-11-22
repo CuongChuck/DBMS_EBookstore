@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -7,20 +8,21 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleAddPublisher = () => {
+    const handleRegister = () => {
         const data = {
             email,
             username,
             password
         };
         axios
-            .post("http://localhost:8080/publisher/add", data)
+            .post("http://localhost:8080/register", data)
             .then(() => {
-                navigate('/publisher/list');
+                if (password == "1") navigate('/admin/auth');
+                else navigate('/user/auth');
             })
             .catch((err) => {
                 console.error(err);
-                alert("An error occurred when adding a publisher");
+                alert("An error occurred when adding a user");
             })
     };
 
@@ -29,18 +31,30 @@ const Register = () => {
             <h2>Register</h2>
             <div>
                 <label>Email</label>
-                <input type='email' />
+                <input
+                    type='email'
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
             </div>
             <div>
                 <label>Username</label>
-                <input type='text' />
+                <input
+                    type='text'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
             </div>
             <div>
                 <label>Password</label>
-                <input type='password' />
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
             </div>
             <div>
-                <button>Register</button>
+                <button onClick={handleRegister}>Register</button>
             </div>
         </div>
     )
