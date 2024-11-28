@@ -17,10 +17,7 @@ const ShowCategoryList = () => {
     }, []);
     return (
         <div>
-            <ul>
-                <li><Link to={'/admin'} >Home</Link></li>
-            </ul>
-            <button onClick={() => {navigate('/category/admin/add')}}>Add category</button>
+            <button onClick={() => {navigate('/category/add')}}>Add category</button>
             <h2>Category List</h2>
             <table>
                 <thead>
@@ -41,14 +38,14 @@ const ShowCategoryList = () => {
                                 <td>
                                     <button
                                         onClick={() => {
-                                            navigate(`/category/admin/edit/${item.CategoryID}`
+                                            navigate(`/category/edit/${item.CategoryID}`
                                         )}}
                                     >
                                             Edit
                                     </button>
                                     <button
                                         onClick={() => {
-                                            navigate(`/category/admin/delete/${item.CategoryID}`
+                                            navigate(`/category/delete/${item.CategoryID}`
                                         )}}
                                     >
                                             Delete
