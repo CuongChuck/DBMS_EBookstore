@@ -7,6 +7,7 @@ import authorRouter from "./routes/authorRouter.js";
 import authRouter from "./routes/authRouter.js";
 import translatorRouter from "./routes/translatorRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
+import bookRouter from "./routes/bookRouter.js";
 
 const app = express();
 
@@ -35,4 +36,5 @@ app.use('/publisher', publisherRouter);
 app.use('/author', authorRouter);
 app.use('/translator', translatorRouter);
 app.use('/category', categoryRouter);
+app.use('/book', bookRouter);
 app.use('/', authRouter);
