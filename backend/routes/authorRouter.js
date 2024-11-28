@@ -28,11 +28,28 @@ authorRouter.post('/add', async (request, response) => {
 // Route for SELECT all authors
 authorRouter.get('/', async (request, response) => {
     try {
-        const sql = `SELECT * FROM Author`;
+        const sql = `CALL GetAllAuthors()`;
         mysqlConnection.query(sql, (err, results, fields) => {
             if (err) return console.error(err.message);
             return response.status(200).json({
-                data: results
+                data: results[0]
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
+// Route for SELECT an author
+authorRouter.get('/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const sql = `CALL GetAuthor(${id})`;
+        mysqlConnection.query(sql, (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(200).json({
+                data: results[0]
             });
         });
     } catch (err) {
