@@ -15,7 +15,7 @@ const AddPublisher = () => {
         axios
             .post("http://localhost:8080/publisher/add", data)
             .then(() => {
-                navigate('/publisher/list');
+                navigate('/publisher');
             })
             .catch((err) => {
                 console.error(err);

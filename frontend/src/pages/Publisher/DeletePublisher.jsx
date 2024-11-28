@@ -9,7 +9,7 @@ const DeletePublisher = () => {
         axios
             .delete(`http://localhost:8080/publisher/delete/${id}`)
             .then(() => {
-                navigate('/publisher/list');
+                navigate('/publisher');
             })
             .catch((err) => {
                 console.error(err);
@@ -21,7 +21,7 @@ const DeletePublisher = () => {
         <div>
             <h2>Are you sure you want to delete publisher {id}</h2>
             <button onClick={handleDeletePublisher}>Yes</button>
-            <button onClick={() => {navigate('/publisher/list')}}>Cancel</button>
+            <button onClick={() => {navigate('/publisher')}}>Cancel</button>
         </div>
     )
 }

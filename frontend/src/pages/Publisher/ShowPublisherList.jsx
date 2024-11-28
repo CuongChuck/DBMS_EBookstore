@@ -17,10 +17,7 @@ const ShowPublisherList = () => {
     }, []);
     return (
         <div>
-            <ul>
-                <li><Link to={'/admin'} >Home</Link></li>
-            </ul>
-            <button onClick={() => {navigate('/publisher/admin/add')}}>Add publisher</button>
+            <button onClick={() => {navigate('/publisher/add')}}>Add publisher</button>
             <h2>Publisher List</h2>
             <table>
                 <thead>
@@ -41,14 +38,14 @@ const ShowPublisherList = () => {
                                 <td>
                                     <button
                                         onClick={() => {
-                                            navigate(`/publisher/admin/edit/${item.PublisherID}`
+                                            navigate(`/publisher/edit/${item.PublisherID}`
                                         )}}
                                     >
                                             Edit
                                     </button>
                                     <button
                                         onClick={() => {
-                                            navigate(`/publisher/admin/delete/${item.PublisherID}`
+                                            navigate(`/publisher/delete/${item.PublisherID}`
                                         )}}
                                     >
                                             Delete

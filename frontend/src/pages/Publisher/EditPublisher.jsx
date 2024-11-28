@@ -16,7 +16,7 @@ const EditPublisher = () => {
         axios
             .put(`http://localhost:8080/publisher/edit/${id}`, data)
             .then(() => {
-                navigate('/publisher/list');
+                navigate('/publisher');
             })
             .catch((err) => {
                 console.error(err);
