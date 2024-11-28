@@ -12,7 +12,7 @@ const AddAuthor = () => {
         axios
             .post("http://localhost:8080/author/add", data)
             .then(() => {
-                navigate('/author/list');
+                navigate('/author');
             })
             .catch((err) => {
                 console.error(err);

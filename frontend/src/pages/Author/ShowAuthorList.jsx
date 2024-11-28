@@ -3,56 +3,69 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 const ShowAuthorList = () => {
+    const [role, setRole] = useState(null);
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
-        axios
-            .get("http://localhost:8080/author")
-            .then((response) => {
-                setItems(response.data.data);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
+        const authorListRoleBased = async () => {
+            try {
+                const [roleResponse, authorResponse] = await Promise.all([
+                    axios.get('http://localhost:8080/role'),
+                    axios.get('http://localhost:8080/author')
+                ]);
+                if (roleResponse.data.role === "Role Admin") setRole(false);
+                else if (roleResponse.data.role === "Role User") setRole(true);
+                setItems(authorResponse.data.data);
+            } catch (err) {
+                console.error(err.message)
+            }
+        }
+        authorListRoleBased();
     }, []);
     return (
         <div>
-            <ul>
-                <li><Link to={'/admin'} >Home</Link></li>
-            </ul>
-            <button onClick={() => {navigate('/author/admin/add')}}>Add author</button>
+            {!role && (<button onClick={() => {navigate('/author/add')}}>Add author</button>)}
             <h2>Author List</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        {role ? (<th>No</th>) : (<th>ID</th>)}
                         <th>Name</th>
-                        <th>Description</th>
                         <th>Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item) => {
+                    {items.map((item, index) => {
                         return (
-                            <tr key={item.AuthorID}>
-                                <td>{item.AuthorID}</td>
+                            <tr key={index}>
+                                <td>{role ? index : item.AuthorID}</td>
                                 <td>{item.Name}</td>
-                                <td>{item.Description}</td>
                                 <td>
                                     <button
                                         onClick={() => {
-                                            navigate(`/author/admin/edit/${item.AuthorID}`
-                                        )}}
+                                            navigate(`/author/${item.AuthorID}`);
+                                        }}
                                     >
-                                            Edit
+                                            Details
                                     </button>
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/author/admin/delete/${item.AuthorID}`
-                                        )}}
-                                    >
-                                            Delete
-                                    </button>
+                                    {!role && (
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/author/edit/${item.AuthorID}`);
+                                            }}
+                                        >
+                                                Edit
+                                        </button>
+                                    )}
+                                    {!role && (
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/author/delete/${item.AuthorID}`
+                                            )}}
+                                        >
+                                                Delete
+                                        </button>
+                                    )}
                                 </td>
                             </tr>
                         )
