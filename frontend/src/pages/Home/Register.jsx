@@ -17,8 +17,7 @@ const Register = () => {
         axios
             .post("http://localhost:8080/register", data)
             .then(() => {
-                if (password == "1") navigate('/admin/auth');
-                else navigate('/user/auth');
+                navigate('/user/auth');
             })
             .catch((err) => {
                 console.error(err);

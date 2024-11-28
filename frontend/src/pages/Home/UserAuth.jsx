@@ -12,7 +12,7 @@ const UserAuth = () => {
         axios
             .post('http://localhost:8080/login', data)
             .then((response) => {
-                if (response.data.status === "User Success") navigate('/user');
+                if (response.data.status === "Login Success") navigate('/user');
                 else alert("Username or password is not correct");
             })
             .catch((err) => {

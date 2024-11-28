@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const User = () => {
-    const [auth, setAuth] = useState(false);
+    const [role, setRole] = useState(null);
     const navigate = useNavigate();
+    
     useEffect(() => {
         axios
-            .get('http://localhost:8080/user')
+            .get('http://localhost:8080/role')
             .then((response) => {
-                if (response.data.status === "User Success") setAuth(true);
-                else setAuth(false);
+                if (response.data.role === "Role Admin") setRole(false);
+                else if (response.data.role === "Role User") setRole(true);
             })
-
     }, []);
 
     const handleLogOut = () => {
         axios
             .get('http://localhost:8080/logout')
             .then((response) => {
-                if (response.data.message === "Success") navigate('/');
+                if (response.data.message === "Logout Success") navigate('/');
                 else alert("Error occurred!");
             })
             .catch((err) => {
@@ -29,25 +29,10 @@ const User = () => {
 
     return (
         <div>
-            {
-                auth ?
-                <div>
-                    <h2>Dashboard</h2>
-                    <ul>
-                        <li><Link to={'/admin'} >Home</Link></li>
-                        <li><Link to={'/publisher/list'}>Publisher</Link></li>
-                        <li><Link to={'/author/list'}>Author</Link></li>
-                        <li><Link to={'/translator/list'}>Translator</Link></li>
-                        <li><Link to={'/category/list'}>Category</Link></li>
-                    </ul>
-                    <button onClick={handleLogOut}>Logout</button>
-                </div>
-                :
-                <div>
-                    <h2>Error. Log in again</h2>
-                    <button onClick={() => {navigate('/user/auth')}}>Log In</button>
-                </div>
-            }
+            <div>
+                <h2>Dashboard</h2>
+                <button onClick={handleLogOut}>Logout</button>
+            </div>
         </div>
     )
 }

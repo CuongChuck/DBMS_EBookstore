@@ -7,8 +7,7 @@ const Home = () => {
     return (
         <div>
             <h2>Welcome to E-Bookstore</h2>
-            <button onClick={() => {navigate('/user/auth')}}>User</button>
-            <button onClick={() => {navigate('/admin/auth')}}>Admin</button>
+            <button onClick={() => {navigate('/user/auth')}}>Login</button>
             <button onClick={() => {navigate('/register')}}>Register</button>
         </div>
     )
