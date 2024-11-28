@@ -10,12 +10,8 @@ const verifyAdmin = (request, response, next) => {
     else {
         jwt.verify(token, "jwt-secret-key", (err, decoded) => {
             if (err) return response.json({message: "Authentication Error."});
-            const id = decoded.id;
-            const sql = `SELECT * FROM User WHERE UserID = ${id}`;
-            mysqlConnection.query(sql, [true], (err, results, fields) => {
-                if (err) return response.status(500).json({message: err.message});
-                if (results[0].Role.readUInt8(0) == 1) return response.json({message: "Authentication Error."});
-            });
+            const role = decoded.role;
+            if (role != 0) return response.json({message: "Authentication Error."});
             next();
         });
     }
@@ -27,31 +23,45 @@ const verifyUser = (request, response, next) => {
     else {
         jwt.verify(token, "jwt-secret-key", (err, decoded) => {
             if (err) return response.json({message: "Authentication Error."});
-            const id = decoded.id;
-            const sql = `SELECT * FROM User WHERE UserID = ${id}`;
-            mysqlConnection.query(sql, [true], (err, results, fields) => {
-                if (err) return response.status(500).json({message: err.message});
-                if (results[0].Role.readUInt8(0) == 0) return response.json({message: "Authentication Error."});
-            });
+            const role = decoded.role;
+            if (role != 1) return response.json({message: "Authentication Error."});
             next();
         });
     }
 }
 
 // Route for confirm log in
-authRouter.get('/', verifyAdmin, (request, response) => {
-    return response.json({status: "Admin Success"});
+authRouter.get('/admin/auth', verifyAdmin, (request, response) => {
+    return response.json({status: "Admin Authorized"});
 });
 
 // Route for confirm log in
-authRouter.get('/user', verifyUser, (request, response) => {
-    return response.json({status: "User Success"});
+authRouter.get('/user/auth', verifyUser, (request, response) => {
+    return response.json({status: "User Authorized"});
+});
+
+// Route for confirm log in
+authRouter.get('/role', (request, response) => {
+    try {
+        const token = request.cookies.token;
+        if (!token) return response.json({message: "Token needed"});
+        else {
+            jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+                if (err) return response.json({message: "Authentication Error."});
+                const role = decoded.role;
+                if (role == 0) return response.json({role: "Role Admin"});
+                else return response.json({role: "Role User"});
+            });
+        }
+    } catch (err) {
+        response.status(500).send({message: err.message});
+    }
 });
 
 // Route for logout
 authRouter.get('/logout', (request, response) => {
     response.clearCookie('token');
-    return response.json({message: "Success"});
+    return response.json({message: "Logout Success"});
 });
 
 // Route for Register
@@ -110,10 +120,10 @@ authRouter.post('/login', async (request, response) => {
                 return response.status(404).json({status: "Failed"});
             else {
                 const id = results[0].UserID;
-                const token = jwt.sign({id}, "jwt-secret-key", {expiresIn: '1d'});
+                const role = results[0].Role.readUInt8(0);
+                const token = jwt.sign({id, role}, "jwt-secret-key", {expiresIn: '1d'});
                 response.cookie('token', token);
-                if (results[0].Role.readUInt8(0) == 0) return response.status(200).json({status: "Admin Success"});
-                else return response.status(200).json({status: "User Success"});
+                return response.status(200).json({status: "Login Success"});
             }
         });
     } catch (err) {
