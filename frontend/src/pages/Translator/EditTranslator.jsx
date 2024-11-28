@@ -13,7 +13,7 @@ const EditTranslator = () => {
         axios
             .put(`http://localhost:8080/translator/edit/${id}`, data)
             .then(() => {
-                navigate('/translator/list');
+                navigate('/translator');
             })
             .catch((err) => {
                 console.error(err);
