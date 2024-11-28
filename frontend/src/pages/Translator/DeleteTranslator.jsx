@@ -9,7 +9,7 @@ const DeleteTranslator = () => {
         axios
             .delete(`http://localhost:8080/translator/delete/${id}`)
             .then(() => {
-                navigate('/translator/list');
+                navigate('/translator');
             })
             .catch((err) => {
                 console.error(err);
@@ -21,7 +21,7 @@ const DeleteTranslator = () => {
         <div>
             <h2>Are you sure you want to delete translator {id}</h2>
             <button onClick={handleDeleteTranslator}>Yes</button>
-            <button onClick={() => {navigate('/translator/list')}}>Cancel</button>
+            <button onClick={() => {navigate('/translator')}}>Cancel</button>
         </div>
     )
 }

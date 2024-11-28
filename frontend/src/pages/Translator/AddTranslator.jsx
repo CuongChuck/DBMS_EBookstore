@@ -12,7 +12,7 @@ const AddTranslator = () => {
         axios
             .post("http://localhost:8080/translator/add", data)
             .then(() => {
-                navigate('/translator/list');
+                navigate('/translator');
             })
             .catch((err) => {
                 console.error(err);

@@ -17,9 +17,6 @@ const ShowTranslatorList = () => {
     }, []);
     return (
         <div>
-            <ul>
-                <li><Link to={'/admin'} >Home</Link></li>
-            </ul>
             <button onClick={() => {navigate('/translator/add')}}>Add translator</button>
             <h2>Translator List</h2>
             <table>
