@@ -11,7 +11,7 @@ authorRouter.post('/add', async (request, response) => {
                 message: "Send all required fields: name"
             });
         }
-        const sql = `INSERT INTO Author(Name, Description) VALUES(?,?)`;
+        const sql = `CALL AddAuthor(?,?)`;
         const values = [request.body.name, request.body.description];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.err(err.message);
@@ -49,7 +49,7 @@ authorRouter.get('/:id', async (request, response) => {
         mysqlConnection.query(sql, (err, results, fields) => {
             if (err) return console.error(err.message);
             return response.status(200).json({
-                data: results[0]
+                data: results
             });
         });
     } catch (err) {
@@ -67,8 +67,8 @@ authorRouter.put('/edit/:id', async (request, response) => {
             });
         }
         const { id } = request.params;
-        const sql = `UPDATE Author SET Name = ?, Description = ? WHERE AuthorID = ${id}`;
-        const data = [request.body.name, request.body.description];
+        const sql = `CALL UpdateAuthor(?,?,?)`;
+        const data = [id, request.body.name, request.body.description];
         mysqlConnection.query(sql, data, (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Author not found"});
             return response.status(200).send({message: `Author ${id} is updated`});
@@ -83,7 +83,7 @@ authorRouter.put('/edit/:id', async (request, response) => {
 authorRouter.delete('/delete/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const sql = `DELETE FROM Author WHERE AuthorID = ?`;
+        const sql = `CALL DeleteAuthor(?)`;
         mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Author not found"});
             return response.status(200).send({message: `Author ${id} is deleted`});
