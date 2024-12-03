@@ -40,6 +40,7 @@ const AddAuthor = () => {
                 />
             </div>
             <button onClick={handleAddAuthor}>Save</button>
+            <button onClick={() => {navigate('/author')}}>Cancel</button>
         </div>
     )
 }

@@ -30,12 +30,12 @@ const ShowAuthor = () => {
 
     return (
         <div>
-            <p>Name: {items[0].Name}</p>
-            <p>Description: {items[0].Description}</p>
+            <p>Name: {items[0][0].Name}</p>
+            <p>Description: {items[0][0].Description}</p>
             <div>
                 <p>Books</p>
                 <ul>
-                    {items.map((item, index) => {
+                    {items[1].map((item, index) => {
                         return (
                             <li key={index}><Link to={`/book/${item.BookID}`}>{item.BookName}</Link></li>
                         );
