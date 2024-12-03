@@ -28,11 +28,11 @@ translatorRouter.post('/add', async (request, response) => {
 // Route for SELECT all Translators
 translatorRouter.get('/', async (request, response) => {
     try {
-        const sql = `SELECT * FROM Translator`;
+        const sql = `CALL GetAllTranslators()`;
         mysqlConnection.query(sql, (err, results, fields) => {
             if (err) return console.error(err.message);
             return response.status(200).json({
-                data: results
+                data: results[0]
             });
         });
     } catch (err) {
