@@ -16,47 +16,53 @@ const ShowPublisherList = () => {
             })
     }, []);
     return (
-        <div>
-            <button onClick={() => {navigate('/publisher/add')}}>Add publisher</button>
-            <h2>Publisher List</h2>
-            <table>
-                <thead>
+        <div className="min-h-screen bg-gray-100 py-12 px-4">
+        <div className="flex justify-between items-center mb-6">
+            <h2 className="text-3xl font-semibold text-gray-800">Publisher List</h2>
+            <button
+                onClick={() => navigate('/publisher/add')}
+                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+                Add Publisher
+            </button>
+        </div>
+
+        <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+            <table className="min-w-full table-auto">
+                <thead className="bg-gray-200">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Operations</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">ID</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Name</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Location</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item) => {
-                        return (
-                            <tr key={item.PublisherID}>
-                                <td>{item.PublisherID}</td>
-                                <td>{item.Name}</td>
-                                <td>{item.Location}</td>
-                                <td>
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/publisher/edit/${item.PublisherID}`
-                                        )}}
-                                    >
-                                            Edit
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/publisher/delete/${item.PublisherID}`
-                                        )}}
-                                    >
-                                            Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    })}
+                    {items.map((item) => (
+                        <tr key={item.PublisherID} className="border-t hover:bg-gray-50">
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.PublisherID}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.Name}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.Location}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700 flex space-x-4">
+                                <button
+                                    onClick={() => navigate(`/publisher/edit/${item.PublisherID}`)}
+                                    className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => navigate(`/publisher/delete/${item.PublisherID}`)}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
+    </div>
     )
 }
 

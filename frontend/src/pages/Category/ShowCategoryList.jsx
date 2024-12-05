@@ -16,47 +16,53 @@ const ShowCategoryList = () => {
             })
     }, []);
     return (
-        <div>
-            <button onClick={() => {navigate('/category/add')}}>Add category</button>
-            <h2>Category List</h2>
-            <table>
-                <thead>
+        <div className="min-h-screen bg-gray-100 py-12 px-4">
+        <div className="flex justify-between items-center mb-6">
+            <h2 className="text-3xl font-semibold text-gray-800">Category List</h2>
+            <button
+                onClick={() => navigate('/category/add')}
+                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+                Add Category
+            </button>
+        </div>
+        
+        <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+            <table className="min-w-full table-auto">
+                <thead className="bg-gray-200">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Operations</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">ID</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Name</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Description</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item) => {
-                        return (
-                            <tr key={item.CategoryID}>
-                                <td>{item.CategoryID}</td>
-                                <td>{item.Name}</td>
-                                <td>{item.Description}</td>
-                                <td>
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/category/edit/${item.CategoryID}`
-                                        )}}
-                                    >
-                                            Edit
-                                    </button>
-                                    <button
-                                        onClick={() => {
-                                            navigate(`/category/delete/${item.CategoryID}`
-                                        )}}
-                                    >
-                                            Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    })}
+                    {items.map((item) => (
+                        <tr key={item.CategoryID} className="border-t hover:bg-gray-50">
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.CategoryID}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.Name}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700">{item.Description}</td>
+                            <td className="px-6 py-4 text-sm text-gray-700 flex space-x-4">
+                                <button
+                                    onClick={() => navigate(`/category/edit/${item.CategoryID}`)}
+                                    className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => navigate(`/category/delete/${item.CategoryID}`)}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
+    </div>
     )
 }
 

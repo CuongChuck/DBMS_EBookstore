@@ -23,57 +23,68 @@ const ShowBookList = () => {
         bookListRoleBased();
     }, []);
     return (
-        <div>
-            <h2>Books</h2>
-            {!role && (<button onClick={() => {navigate('/book/add')}}>Add book</button>)}
-            <h2>Book List</h2>
-            <table>
-                <thead>
-                    <tr>
-                        {role ? (<th>No</th>) : (<th>ID</th>)}
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Operations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{role ? index : item.BookID}</td>
-                                <td>{item.BookName}</td>
-                                <td>{item.SellingPrice}</td>
-                                <td>
+        <div className="min-h-screen bg-gray-100 py-12 px-4">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-semibold text-gray-800">Book List</h2>
+                {!role && (
+                    <button
+                        onClick={() => navigate('/book/add')}
+                        className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    >
+                        Add Book
+                    </button>
+                )}
+            </div>
+
+            <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+                <table className="min-w-full table-auto">
+                    <thead className="bg-gray-200">
+                        <tr>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                                {role ? 'No' : 'ID'}
+                            </th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Name</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Price</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Operations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item, index) => (
+                            <tr key={index} className="border-t hover:bg-gray-50">
+                                <td className="px-6 py-4 text-sm text-gray-700">
+                                    {role ? index + 1 : item.BookID}
+                                </td>
+                                <td className="px-6 py-4 text-sm text-gray-700">{item.BookName}</td>
+                                <td className="px-6 py-4 text-sm text-gray-700">{item.SellingPrice}</td>
+                                <td className="px-6 py-4 text-sm text-gray-700 flex space-x-4">
                                     {!role && (
-                                        <button
-                                            onClick={() => {
-                                                navigate(`/book/edit/${item.BookID}`)
-                                            }}
-                                        >
-                                            Edit
-                                        </button>
-                                    )}
-                                    {!role && (
-                                        <button
-                                            onClick={() => {
-                                                navigate(`/book/delete/${item.BookID}`)
-                                            }}
-                                        >
-                                            Delete
-                                        </button>
+                                        <>
+                                            <button
+                                                onClick={() => navigate(`/book/edit/${item.BookID}`)}
+                                                className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => navigate(`/book/delete/${item.BookID}`)}
+                                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
                                     )}
                                     <button
-                                        onClick={() => {
-                                            navigate(`/book/${item.BookID}`)
-                                        }}
+                                        onClick={() => navigate(`/book/${item.BookID}`)}
+                                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                                     >
                                         Details
-                                    </button>                        
+                                    </button>
                                 </td>
                             </tr>
-                    )})}
-                </tbody>
-            </table>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
