@@ -22,6 +22,9 @@ import ShowBookList from './pages/Book/ShowBookList';
 import AddBook from './pages/Book/AddBook';
 import ShowAuthor from './pages/Author/ShowAuthor';
 import ShowBook from './pages/Book/ShowBook';
+import ShowPublisher from './pages/Publisher/ShowPublisher';
+import ShowCategory from './pages/Category/ShowCategory';
+import ShowTranslator from './pages/Translator/ShowTranslator';
 
 const routes = [
     { path: '/publisher/add', component: AddPublisher },
@@ -46,8 +49,11 @@ const routes = [
     { path: '/author/:id', component: ShowAuthor },
     { path: '/author', component: ShowAuthorList },
     { path: '/publisher', component: ShowPublisherList },
+    { path: '/publisher/:id', component: ShowPublisher },
     { path: '/translator', component: ShowTranslatorList },
-    { path: '/category', component: ShowCategoryList }
+    { path: '/translator/:id', component: ShowTranslator },
+    { path: '/category', component: ShowCategoryList },
+    { path: '/category/:id', component: ShowCategory }
 ];
 
 export { routes };

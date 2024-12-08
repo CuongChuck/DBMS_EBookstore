@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const ShowAuthor = () => {
+const ShowTranslator = () => {
     const [items, setItems] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/author/${id}`)
+            .get(`http://localhost:8080/translator/${id}`)
             .then((response) => {
                 setItems(response.data.data);
             })
@@ -39,4 +39,4 @@ const ShowAuthor = () => {
     )
 }
 
-export default ShowAuthor
+export default ShowTranslator

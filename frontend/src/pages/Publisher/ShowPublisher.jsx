@@ -2,20 +2,20 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const ShowAuthor = () => {
+const ShowPublisher = () => {
     const [items, setItems] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/author/${id}`)
+            .get(`http://localhost:8080/publisher/${id}`)
             .then((response) => {
                 setItems(response.data.data);
             })
             .catch((err) => {
                 return (<div>{err.message}</div>);
             })
-    }, [id])
+    }, [id]);
 
     if (items.length === 0) {
         return <div>Loading...</div>; // Show loading state or a message
@@ -24,7 +24,7 @@ const ShowAuthor = () => {
     return (
         <div>
             <p>Name: {items[0][0].Name}</p>
-            <p>Description: {items[0][0].Description}</p>
+            <p>Location: {items[0][0].Location}</p>
             <div>
                 <p>Books</p>
                 <ul>
@@ -39,4 +39,4 @@ const ShowAuthor = () => {
     )
 }
 
-export default ShowAuthor
+export default ShowPublisher

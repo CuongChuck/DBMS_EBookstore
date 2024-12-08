@@ -41,6 +41,21 @@ categoryRouter.get('/', async (request, response) => {
     }
 });
 
+// Route for SELECT a category based on id
+categoryRouter.get('/:id', async (request, response) => {
+    try {
+        const sql = `CALL GetCategory(?)`;
+        const { id } = request.params;
+        mysqlConnection.query(sql, [id], (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(200).json({data: results});
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for Update a Category based on ID
 categoryRouter.put('/edit/:id', async (request, response) => {
     try {
