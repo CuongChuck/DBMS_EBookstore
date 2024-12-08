@@ -3,25 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const ShowAuthor = () => {
-    const [role, setRole] = useState(null);
     const [items, setItems] = useState([]);
     const { id } = useParams();
 
     useEffect(() => {
-        const authorRoleBased = async () => {
-            try {
-                const [roleResponse, authorResponse] = await Promise.all([
-                    axios.get('http://localhost:8080/role'),
-                    axios.get(`http://localhost:8080/author/${id}`)
-                ]);
-                if (roleResponse.data.role === "Role Admin") setRole(false);
-                else if (roleResponse.data.role === "Role User") setRole(true);
-                setItems(authorResponse.data.data);
-            } catch (err) {
-                console.error(err.message)
-            }
-        }
-        authorRoleBased();
+        axios
+            .get(`http://localhost:8080/author/${id}`)
+            .then((response) => {
+                setItems(response.data.data);
+            })
+            .catch((err) => {
+                return (<div>{err.message}</div>);
+            })
     }, [id])
 
     if (items.length === 0) {

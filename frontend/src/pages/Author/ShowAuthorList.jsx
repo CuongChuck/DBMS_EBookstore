@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ShowAuthorList = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState(true);
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
@@ -14,7 +14,7 @@ const ShowAuthorList = () => {
                     axios.get('http://localhost:8080/author')
                 ]);
                 if (roleResponse.data.role === "Role Admin") setRole(false);
-                else if (roleResponse.data.role === "Role User") setRole(true);
+                else setRole(true);
                 setItems(authorResponse.data.data);
             } catch (err) {
                 console.error(err.message)
@@ -40,11 +40,9 @@ const ShowAuthorList = () => {
                 <table className="min-w-full table-auto">
                     <thead className="bg-gray-200">
                         <tr>
-                            {role ? (
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">No</th>
-                            ) : (
-                                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">ID</th>
-                            )}
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                                {role ? 'No' : 'ID'}
+                            </th>
                             <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Name</th>
                             <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Operations</th>
                         </tr>
