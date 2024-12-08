@@ -65,8 +65,8 @@ publisherRouter.put('/edit/:id', async (request, response) => {
             });
         }
         const { id } = request.params;
-        const sql = `UPDATE Publisher SET Name = ?, Location = ? WHERE PublisherID = ${id}`;
-        const data = [request.body.name, request.body.location];
+        const sql = `CALL UpdatePublisher(?,?,?)`;
+        const data = [id, request.body.name, request.body.location];
         mysqlConnection.query(sql, data, (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Publisher not found"});
             return response.status(200).send({message: `Publisher ${id} is updated`});
