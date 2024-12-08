@@ -28,74 +28,94 @@ const EditBook = () => {
     };
 
     return (
-        <div>
-            <h2>Edit Book</h2>
-            <div>
-                <label>Name</label>
+        <div className="max-w-2xl mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">Edit Book</h2>
+            <div className="mb-4">
+                <label className="block text-gray-700">Name</label>
                 <input
                     type='text'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Description</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Description</label>
                 <input
                     type='text'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Publication Year</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Publication Year</label>
                 <input
                     type='number'
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>OriginalPrice</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Original Price</label>
                 <input
                     type='number'
                     value={oriPrice}
                     onChange={(e) => setOriPrice(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Quantity Stored</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Quantity Stored</label>
                 <input
                     type='number'
                     value={quantityStored}
                     onChange={(e) => setQuantityStored(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Quantity Sold</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Quantity Sold</label>
                 <input
                     type='number'
                     value={quantitySold}
                     onChange={(e) => setQuantitySold(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Selling Price</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Selling Price</label>
                 <input
                     type='number'
                     value={sellPrice}
                     onChange={(e) => setSellPrice(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <div>
-                <label>Publisher ID</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Publisher ID</label>
                 <input
                     type='number'
                     value={publisher}
                     onChange={(e) => setPublisher(e.target.value)}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
             </div>
-            <button onClick={handleEditBook}>Save</button>
-            <button onClick={() => {navigate('/book')}}>Cancel</button>
+            <div className="flex space-x-4">
+                <button
+                    onClick={handleEditBook}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                    Save
+                </button>
+                <button
+                    onClick={() => { navigate('/book') }}
+                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                >
+                    Cancel
+                </button>
+            </div>
         </div>
     )
 }

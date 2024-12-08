@@ -24,25 +24,32 @@ const AddPublisher = () => {
     };
 
     return (
-        <div>
-            <h2>Add publisher</h2>
-            <div>
-                <label>Name</label>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-6">Add Publisher</h2>
+            <div className="mb-4">
+                <label className="block text-gray-700">Name</label>
                 <input
                     type='text'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            <div>
-                <label>Location</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Location</label>
                 <input
                     type='text'
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            <button onClick={handleAddPublisher}>Save</button>
+            <button
+                onClick={handleAddPublisher}
+                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+            >
+                Save
+            </button>
         </div>
     )
 }

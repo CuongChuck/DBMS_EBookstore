@@ -21,28 +21,32 @@ const AddAuthor = () => {
     };
 
     return (
-        <div>
-            <h2>Add author</h2>
-            <div>
-                <label>Name</label>
+        <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
+            <h2 className="text-center text-2xl font-bold mb-6">Add Author</h2>
+            <div className="mb-4">
+                <label className="block mb-2 font-bold">Name</label>
                 <input
                     type='text'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
-            <div>
-                <label>Description</label>
+            <div className="mb-4">
+                <label className="block mb-2 font-bold">Description</label>
                 <input
                     type='text'
                     value={description}
                     onChange={(e) => setDes(e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded"
                 />
             </div>
-            <button onClick={handleAddAuthor}>Save</button>
-            <button onClick={() => {navigate('/author')}}>Cancel</button>
+            <div className="flex justify-between">
+                <button onClick={handleAddAuthor} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
+                <button onClick={() => {navigate('/author')}} className="px-4 py-2 bg-gray-500 text-white rounded">Cancel</button>
+            </div>
         </div>
     )
 }
 
-export default AddAuthor
+export default AddAuthor;
