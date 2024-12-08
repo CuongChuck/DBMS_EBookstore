@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const ShowBook = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState(true);
     const [items, setItems] = useState([]);
     const { id } = useParams();
 
@@ -15,7 +15,7 @@ const ShowBook = () => {
                     axios.get(`http://localhost:8080/book/${id}`)
                 ]);
                 if (roleResponse.data.role === "Role Admin") setRole(false);
-                else if (roleResponse.data.role === "Role User") setRole(true);
+                else setRole(true);
                 setItems(bookResponse.data.data);
             } catch (err) {
                 console.error(err.message)

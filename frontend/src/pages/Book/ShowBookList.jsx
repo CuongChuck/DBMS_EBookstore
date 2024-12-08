@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ShowBookList = () => {
-    const [role, setRole] = useState(null);
+    const [role, setRole] = useState(true);
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
     useEffect(() => {
@@ -14,7 +14,7 @@ const ShowBookList = () => {
                     axios.get('http://localhost:8080/book')
                 ]);
                 if (roleResponse.data.role === "Role Admin") setRole(false);
-                else if (roleResponse.data.role === "Role User") setRole(true);
+                else setRole(true);
                 setItems(bookResponse.data.data);
             } catch (err) {
                 console.error(err.message)
