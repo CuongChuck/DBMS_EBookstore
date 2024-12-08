@@ -65,8 +65,8 @@ categoryRouter.put('/edit/:id', async (request, response) => {
             });
         }
         const { id } = request.params;
-        const sql = `UPDATE Category SET Name = ?, Description = ? WHERE CategoryID = ${id}`;
-        const data = [request.body.name, request.body.description];
+        const sql = `CALL UpdateCategory(?,?,?)`;
+        const data = [id, request.body.name, request.body.description];
         mysqlConnection.query(sql, data, (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Category not found"});
             return response.status(200).send({message: `Category ${id} is updated`});

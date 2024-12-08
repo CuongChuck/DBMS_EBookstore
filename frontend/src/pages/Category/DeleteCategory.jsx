@@ -9,7 +9,7 @@ const DeleteCategory = () => {
         axios
             .delete(`http://localhost:8080/category/delete/${id}`)
             .then(() => {
-                navigate('/category/list');
+                navigate('/category');
             })
             .catch((err) => {
                 console.error(err);
@@ -21,7 +21,7 @@ const DeleteCategory = () => {
         <div>
             <h2>Are you sure you want to delete category {id}</h2>
             <button onClick={handleDeleteCategory}>Yes</button>
-            <button onClick={() => {navigate('/category/list')}}>Cancel</button>
+            <button onClick={() => {navigate('/category')}}>Cancel</button>
         </div>
     )
 }

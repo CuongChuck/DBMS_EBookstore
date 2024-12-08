@@ -12,7 +12,7 @@ const AddCategory = () => {
         axios
             .post("http://localhost:8080/category/add", data)
             .then(() => {
-                navigate('/category/list');
+                navigate('/category');
             })
             .catch((err) => {
                 console.error(err);
