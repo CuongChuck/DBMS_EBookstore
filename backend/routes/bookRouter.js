@@ -16,8 +16,8 @@ bookRouter.post('/add', async (request, response) => {
         }
         const sql = `CALL AddBook(?,?,?,?,?,?,?,?)`;
         const values = [
-            request.body.name, request.body.oriPrice, request.body.date, request.body.quantityStored,
-            request.body.quantitySold, request.body.description, request.body.sellPrice, request.body.publisher
+            request.body.name, request.body.oriPrice, request.body.quantityStored, request.body.publisher,
+            request.body.date, request.body.quantitySold, request.body.description, request.body.sellPrice
         ];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.error(err.message);
@@ -79,8 +79,8 @@ bookRouter.put('/edit/:id', async (request, response) => {
         const sql = `CALL UpdateBook(?,?,?,?,?,?,?,?,?)`;
         const values = [
             id,
-            request.body.name, request.body.oriPrice, request.body.date, request.body.quantityStored,
-            request.body.quantitySold, request.body.description, request.body.sellPrice, request.body.publisher
+            request.body.name, request.body.oriPrice, request.body.quantityStored, request.body.publisher,
+            request.body.date, request.body.quantitySold, request.body.description, request.body.sellPrice
         ];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.error(err.message);

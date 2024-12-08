@@ -32,7 +32,7 @@ const ShowBook = () => {
             <p>Name: {items[0][0].BookName}</p>
             <p>Description: {items[0][0].Description}</p>
             <p>SellingPrice: {items[0][0].SellingPrice}</p>
-            <p>Publisher: {items[0][0].PublisherName}</p>
+            <p>Publisher: <Link to={`/publisher/${items[0][0].PublisherID}`}>{items[0][0].PublisherName}</Link></p>
             {!role && (
                 <p>OriginalPrice: {items[0][0].OriginalPrice}</p>
             )}

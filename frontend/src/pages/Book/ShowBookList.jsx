@@ -57,6 +57,12 @@ const ShowBookList = () => {
                                 <td className="px-6 py-4 text-sm text-gray-700">{item.BookName}</td>
                                 <td className="px-6 py-4 text-sm text-gray-700">{item.SellingPrice}</td>
                                 <td className="px-6 py-4 text-sm text-gray-700 flex space-x-4">
+                                    <button
+                                        onClick={() => navigate(`/book/${item.BookID}`)}
+                                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                                    >
+                                        Details
+                                    </button>
                                     {!role && (
                                         <>
                                             <button
@@ -73,12 +79,6 @@ const ShowBookList = () => {
                                             </button>
                                         </>
                                     )}
-                                    <button
-                                        onClick={() => navigate(`/book/${item.BookID}`)}
-                                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                                    >
-                                        Details
-                                    </button>
                                 </td>
                             </tr>
                         ))}
