@@ -41,6 +41,21 @@ translatorRouter.get('/', async (request, response) => {
     }
 });
 
+// Route for SELECT a translator based on id
+translatorRouter.get('/:id', async (request, response) => {
+    try {
+        const sql = `CALL GetTranslator(?)`;
+        const { id } = request.params;
+        mysqlConnection.query(sql, [id], (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(200).json({data: results});
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for Update a Translator based on ID
 translatorRouter.put('/edit/:id', async (request, response) => {
     try {
