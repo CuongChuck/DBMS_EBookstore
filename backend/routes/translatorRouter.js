@@ -65,8 +65,8 @@ translatorRouter.put('/edit/:id', async (request, response) => {
             });
         }
         const { id } = request.params;
-        const sql = `UPDATE Translator SET Name = ?, Description = ? WHERE TranslatorID = ${id}`;
-        const data = [request.body.name, request.body.description];
+        const sql = `CALL UpdateTranslator(?,?,?)`;
+        const data = [id, request.body.name, request.body.description];
         mysqlConnection.query(sql, data, (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Translator not found"});
             return response.status(200).send({message: `Translator ${id} is updated`});
