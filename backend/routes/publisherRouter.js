@@ -44,11 +44,11 @@ publisherRouter.get('/', async (request, response) => {
 // Route for SELECT a publisher based on id
 publisherRouter.get('/:id', async (request, response) => {
     try {
-        const sql = `SELECT * FROM Publisher WHERE PublisherID=?`;
+        const sql = `CALL GetPublisher(?)`;
         const { id } = request.params;
         mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err) return console.error(err.message);
-            return response.status(200).json(results);
+            return response.status(200).json({data: results});
         });
     } catch (err) {
         console.error(err.message);
