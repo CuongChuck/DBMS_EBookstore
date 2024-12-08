@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,6 +7,19 @@ const EditAuthor = () => {
     const [description, setDes] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/author/${id}`)
+            .then((response) => {
+                setName(response.data.data[0][0].Name);
+                setDes(response.data.data[0][0].Description);
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("An error occurred when getting an author");
+            })
+    }, [id]);
 
     const handleEditAuthor = () => {
         const data = { name, description };
