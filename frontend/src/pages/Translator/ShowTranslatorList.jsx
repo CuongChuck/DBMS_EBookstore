@@ -44,7 +44,6 @@ const ShowTranslatorList = () => {
                             {role ? 'No' : 'ID'}
                         </th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Name</th>
-                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Description</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">Operations</th>
                     </tr>
                 </thead>
@@ -53,7 +52,6 @@ const ShowTranslatorList = () => {
                         <tr key={index} className="border-t hover:bg-gray-50">
                             <td className="px-6 py-4 text-sm text-gray-700">{role ? index + 1 : item.TranslatorID}</td>
                             <td className="px-6 py-4 text-sm text-gray-700">{item.Name}</td>
-                            <td className="px-6 py-4 text-sm text-gray-700">{item.Description}</td>
                             <td className="px-6 py-4 text-sm text-gray-700 flex space-x-4">
                                 <button
                                     onClick={() => navigate(`/translator/${item.TranslatorID}`)}
