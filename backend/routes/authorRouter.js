@@ -25,47 +25,6 @@ authorRouter.post('/add', async (request, response) => {
     }
 });
 
-// Route for INSERT Book Author
-authorRouter.post('/add-book/:id', async (request, response) => {
-    try {
-        if (!request.body.bookid) {
-            return response.status(400).send({
-                message: "Send all required fields: bookid"
-            });
-        }
-        const { id } = request.params;
-        const sql = `CALL AddBookAuthor(?,?)`;
-        const values = [id, request.body.bookid];
-        mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
-            return response.status(201).send({
-                message: `Book ${values[1]} is added to Author ${values[0]}`
-            });
-        });
-    } catch (err) {
-        console.error(err.message);
-        response.status(500).send({message: err.message});
-    }
-});
-
-// Route for DELETE Book Author
-authorRouter.delete('/delete-book/:authorid/:bookid', async (request, response) => {
-    try {
-        const { authorid, bookid } = request.params;
-        const sql = `CALL DeleteBookAuthor(?,?)`;
-        const values = [authorid, bookid];
-        mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
-            return response.status(201).send({
-                message: `Book ${values[1]} is deleted from Author ${values[0]}`
-            });
-        });
-    } catch (err) {
-        console.error(err.message);
-        response.status(500).send({message: err.message});
-    }
-});
-
 // Route for SELECT all authors
 authorRouter.get('/', async (request, response) => {
     try {
