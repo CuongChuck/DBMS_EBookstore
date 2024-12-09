@@ -30,14 +30,12 @@ const ShowCategory = () => {
                 <table className="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th className="py-2 px-4 border-b">Book ID</th>
                             <th className="py-2 px-4 border-b">Book Name</th>
                         </tr>
                     </thead>
                     <tbody>
                         {items[1].map((item, index) => (
                             <tr key={index}>
-                                <td className="py-2 px-4 border-b">{item.BookID}</td>
                                 <td className="py-2 px-4 border-b">
                                     <Link to={`/book/${item.BookID}`} className="text-blue-500 hover:underline">{item.BookName}</Link>
                                 </td>

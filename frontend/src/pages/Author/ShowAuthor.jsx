@@ -23,22 +23,33 @@ const ShowAuthor = () => {
     }
 
     return (
-        <div>
-            <p>Name: {items[0][0].Name}</p>
-            <p>Description: {items[0][0].Description}</p>
-            <div>
-                <p>Books</p>
-                <ul>
-                    {items[1].map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <Link to={`/book/${item.BookID}`}>{item.BookName}</Link>
-                                <span style={{marginLeft:'30px'}} />
-                                <button onClick={() => {navigate(`/author/delete-book/${id}/${item.BookID}`)}}>Delete</button>
-                            </li>
-                        );
-                    })}
-                </ul>
+        <div className="max-w-4xl mx-auto p-4">
+            <div className="bg-white shadow-md rounded-lg p-6">
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold mb-2">{items[0].Name}</h1>
+                    <p className="text-gray-700">{items[0].Description}</p>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mb-4">Books</h2>
+                    <table className="min-w-full table-auto bg-white shadow-md rounded-lg">
+                        <thead>
+                            <tr>
+                                <th className="py-2 px-4 text-left border-b">Book Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items[1]?.map((item, index) => (
+                                <tr key={index} className="border-t">
+                                    <td className="py-2 px-4">
+                                        <Link to={`/book/${item.BookID}`} className="text-blue-500 hover:underline">
+                                            {item.BookName}
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

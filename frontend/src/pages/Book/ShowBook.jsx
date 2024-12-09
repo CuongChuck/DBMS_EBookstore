@@ -22,57 +22,52 @@ const ShowBook = () => {
             }
         }
         bookRoleBased();
-    }, [id])
+    }, [id]);
     if (items.length === 0) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div>
-            <p>Name: {items[0][0].BookName}</p>
-            <p>Description: {items[0][0].Description}</p>
-            <p>SellingPrice: {items[0][0].SellingPrice}</p>
-            <p>Publisher: <Link to={`/publisher/${items[0][0].PublisherID}`}>{items[0][0].PublisherName}</Link></p>
-            {!role && (
-                <p>OriginalPrice: {items[0][0].OriginalPrice}</p>
-            )}
-            <div>
-                <p>Authors</p>
-                <ul>
-                    {items[1].map((item, index) => {
-                        return (
-                            <li key={index}><Link to={`/author/${item.AuthorID}`}>{item.AuthorName}</Link></li>
-                        );
-                    })}
-                </ul>
-            </div>
-            <div>
-                <p>Categories</p>
-                <ul>
-                    {items[3].map((item, index) => {
-                        return (
-                            <li key={index}><Link to={`/category/${item.CategoryID}`}>{item.CategoryName}</Link></li>
-                        );
-                    })}
-                </ul>
-            </div>
-            <div>
-                <p>Translators</p>
-                <ul>
-                    {items[2].map((item, index) => {
-                        return (
-                            <li key={index}><Link to={`/translator/${item.TranslatorID}`}>{item.TranslatorName}</Link></li>
-                        );
-                    })}
-                </ul>
-            </div>
-            <div>
-                <p>Languages</p>
-                <ul>
-                    {items[4].map((item, index) => {
-                        return (
-                            <li key={index}>{item.Language}</li>
+        <div className="container mx-auto p-4">
+            <div className="bg-white shadow-md rounded-lg p-6">
+                <h1 className="text-2xl font-bold mb-4">{items[0][0].BookName}</h1>
+                <p className="mb-2"><strong>Description:</strong> {items[0][0].Description}</p>
+                <p className="mb-2"><strong>Selling Price:</strong> ${items[0][0].SellingPrice}</p>
+                <p className="mb-2"><strong>Publisher:</strong> {items[0][0].PublisherName}</p>
+                {!role && (
+                    <p className="mb-2"><strong>Original Price:</strong> ${items[0][0].OriginalPrice}</p>
+                )}
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Authors</h2>
+                    <ul className="list-disc list-inside">
+                        {items[1].map((item, index) => (
+                            <li key={index}><Link className="text-blue-500 hover:underline" to={`/author/${item.AuthorID}`}>{item.AuthorName}</Link></li>
                         ))}
+                    </ul>
+                </div>
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Categories</h2>
+                    <ul className="list-disc list-inside">
+                        {items[3].map((item, index) => (
+                            <li key={index}><Link className="text-blue-500 hover:underline" to={`/category/${item.CategoryID}`}>{item.CategoryName}</Link></li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Translators</h2>
+                    <ul className="list-disc list-inside">
+                        {items[2].map((item, index) => (
+                            <li key={index}><Link className="text-blue-500 hover:underline" to={`/translator/${item.TranslatorID}`}>{item.TranslatorName}</Link></li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="mb-4">
+                    <h2 className="text-xl font-semibold">Languages</h2>
+                    <ul className="list-disc list-inside">
+                        {items[4].map((item, index) => (
+                            <li key={index}>{item.Language}</li>
+                        )
+                        )}
                     </ul>
                 </div>
                 <p className="mb-2"><strong>Publication Year:</strong> {items[0][0].PublicationDate}</p>

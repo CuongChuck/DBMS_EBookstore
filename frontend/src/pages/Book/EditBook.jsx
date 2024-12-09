@@ -4,14 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const EditBook = () => {
     const [name, setName] = useState(null);
-    const [name, setName] = useState(null);
     const [oriPrice, setOriPrice] = useState(0);
     const [date, setDate] = useState(null);
-    const [date, setDate] = useState(null);
     const [quantityStored, setQuantityStored] = useState(0);
-    const [quantitySold, setQuantitySold] = useState(null);
-    const [description, setDescription] = useState(null);
-    const [sellPrice, setSellPrice] = useState(null);
     const [quantitySold, setQuantitySold] = useState(null);
     const [description, setDescription] = useState(null);
     const [sellPrice, setSellPrice] = useState(null);
@@ -36,32 +31,9 @@ const EditBook = () => {
                 console.error(err);
                 alert("An error occurred when getting info of a book");
             })
-    }, [id])
-
-    useEffect(() => {
-        axios
-            .get(`http://localhost:8080/book/${id}`)
-            .then((response) => {
-                setName(response.data.data[0][0].BookName);
-                setDescription(response.data.data[0][0].Description);
-                setSellPrice(response.data.data[0][0].SellingPrice);
-                setPublisher(response.data.data[0][0].PublisherID);
-                setOriPrice(response.data.data[0][0].OriginalPrice);
-                setDate(response.data.data[0][0].PublicationDate);
-                setQuantityStored(response.data.data[0][0].QuantityStored);
-                setQuantitySold(response.data.data[0][0].QuantitySold);
-            })
-            .catch((err) => {
-                console.error(err);
-                alert("An error occurred when getting info of a book");
-            })
-    }, [id])
+    }, [id]);
 
     const handleEditBook = () => {
-        const data = {
-            name, oriPrice, quantityStored, publisher, date,
-            quantitySold, description, sellPrice
-        };
         const data = {
             name, oriPrice, quantityStored, publisher, date,
             quantitySold, description, sellPrice
