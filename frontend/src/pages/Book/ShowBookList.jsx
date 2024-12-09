@@ -59,6 +59,12 @@ const ShowBookList = () => {
                                     {!role && (
                                         <>
                                             <button
+                                                onClick={() => navigate(`/book/add-language/${item.BookID}`)}
+                                                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                            >
+                                                Add language
+                                            </button>
+                                            <button
                                                 onClick={() => navigate(`/book/edit/${item.BookID}`)}
                                                 className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
                                             >

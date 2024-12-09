@@ -13,7 +13,6 @@ const DeleteBook = () => {
             })
             .catch((err) => {
                 console.error(err);
-                alert("An error occurred when deleting a book");
             })
     };
 

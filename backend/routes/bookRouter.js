@@ -7,18 +7,19 @@ const bookRouter = express.Router();
 bookRouter.post('/add/:id', async (request, response) => {
     try {
         if (
-            !request.body.name || !request.body.oriPrice ||
-            !request.body.quantityStored || !request.body.publisher
+            !request.body.name || !request.body.oriPrice || !request.body.quantityStored ||
+            !request.body.publisher || !request.body.category
         ) {
             return response.status(400).send({
-                message: "Send all required fields: name, original price, quantityStored, publisherID"
+                message: "Send all required fields: name, original price, quantityStored, publisherID, categoryID"
             });
         }
         const { id } = request.params;
-        const sql = `CALL AddBook(${id},?,?,?,?,?,?,?,?)`;
+        const sql = `CALL AddBook(${id},?,?,?,?,?,?,?,?,?)`;
         const values = [
             request.body.name, request.body.oriPrice, request.body.quantityStored, request.body.publisher,
-            request.body.date, request.body.quantitySold, request.body.description, request.body.sellPrice
+            request.body.date, request.body.quantitySold, request.body.description, request.body.sellPrice,
+            request.body.category
         ];
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.error(err.message);
@@ -101,7 +102,7 @@ bookRouter.delete('/delete/:id', async (request, response) => {
         const { id } = request.params;
         const sql = `CALL DeleteBook(?)`;
         mysqlConnection.query(sql, [id], (err, results, fields) => {
-            if (err || results.affectedRows == 0) return response.status(404).json({message: "Book not found"});
+            if (err) return response.status(404).json({message: "Book not found"});
             return response.status(200).send({message: `Book ${id} is deleted`});
         });
     } catch (err) {

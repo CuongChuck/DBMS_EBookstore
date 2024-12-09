@@ -11,13 +11,14 @@ const AddBook = () => {
     const [description, setDescription] = useState('');
     const [sellPrice, setSellPrice] = useState(0);
     const [publisher, setPublisher] = useState(null);
+    const [category, setCategory] = useState(null);
     const { id } = useParams();
     const navigate = useNavigate();
 
     const handleAddBook = () => {
         const data = {
             name, oriPrice, quantityStored, publisher, date,
-            quantitySold, description, sellPrice
+            quantitySold, description, sellPrice, category
         }
         axios
             .post(`http://localhost:8080/book/add/${id}`, data)
@@ -102,6 +103,15 @@ const AddBook = () => {
                     type='number'
                     value={publisher}
                     onChange={(e) => setPublisher(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700">Category ID</label>
+                <input
+                    type='number'
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg"
                 />
             </div>
