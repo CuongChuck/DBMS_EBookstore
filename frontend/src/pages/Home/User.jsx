@@ -1,9 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const User = () => {
-    const [role, setRole] = useState(null);
     const [user, setUser] = useState({
         avatar: '',
         name: '',
@@ -12,21 +11,6 @@ const User = () => {
         favoriteGenres: []
     });
     const navigate = useNavigate();
-    
-    useEffect(() => {
-        axios
-            .get('http://localhost:8080/role')
-            .then((response) => {
-                if (response.data.role === "Role Admin") setRole(false);
-                else if (response.data.role === "Role User") setRole(true);
-            });
-
-        axios
-            .get('http://localhost:8080/user')
-            .then((response) => {
-                setUser(response.data);
-            });
-    }, []);
 
     const handleLogOut = () => {
         axios
