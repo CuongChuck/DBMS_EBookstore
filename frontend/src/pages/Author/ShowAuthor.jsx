@@ -34,14 +34,12 @@ const ShowAuthor = () => {
                     <table className="min-w-full table-auto bg-white shadow-md rounded-lg">
                         <thead>
                             <tr>
-                                <th className="py-2 px-4 text-left border-b">Book ID</th>
                                 <th className="py-2 px-4 text-left border-b">Book Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {items[1]?.map((item, index) => (
                                 <tr key={index} className="border-t">
-                                    <td className="py-2 px-4">{item.BookID}</td>
                                     <td className="py-2 px-4">
                                         <Link to={`/book/${item.BookID}`} className="text-blue-500 hover:underline">
                                             {item.BookName}
