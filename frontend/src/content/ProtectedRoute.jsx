@@ -15,7 +15,8 @@ const ProtectedRoute = ({children, requiredRole}) => {
                 if (adminResponse.data.status === "Admin Authorized" && requiredRole == "admin")
                     setAdminAuthorized(true);
                 else setAdminAuthorized(false);
-                if (userResponse.data.status === "User Authorized" && requiredRole == "user") {
+                if ((userResponse.data.status === "User Authorized" || adminResponse.data.status === "Admin Authorized")
+                    && requiredRole == "any") {
                     setUserAuthorized(true);
                 }
                 else setUserAuthorized(false);

@@ -46,7 +46,7 @@ const routes = [
     { path: '/book/add/:id', component: AddBook },
     { path: '/book/delete/:id', component: DeleteBook },
     { path: '/book/edit/:id', component: EditBook },
-    { path: '/user', component: User },
+    { path: '/user/:id', component: User },
     { path: '/', component: Home },
     { path: '/register', component: Register },
     { path: '/user/auth', component: UserAuth },

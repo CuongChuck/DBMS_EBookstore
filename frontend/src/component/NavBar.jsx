@@ -1,12 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const NavBar = () => {
+  const [role, setRole] = useState(false);
+  const [id, setID] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    axios
+        .get(`http://localhost:8080/role`)
+        .then((response) => {
+          if (response.data.role === "Role Admin" || response.data.role === "Role User") {
+            setRole(true);
+            setID(response.data.id);
+          }
+        })
+        .catch((err) => {
+            return (<div>{err.message}</div>);
+        })
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 z-30 w-full bg-white p-4 shadow-md">
@@ -53,21 +73,31 @@ export const NavBar = () => {
               onClick={toggleDropdown} 
               className="px-6 text-black hover:bg-blue-500 hover:text-white rounded-lg"
             >
-              Profile
+              Account
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
                 <ul className="flex flex-col">
-                  <li>
-                    <Link to="/user/auth" className="block px-6 py-2 text-black hover:bg-blue-500 hover:text-white rounded-t-lg">
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/register" className="block px-6 py-2 text-black hover:bg-blue-500 hover:text-white rounded-b-lg">
-                      Register
-                    </Link>
-                  </li>
+                  {role ? (
+                    <li>
+                      <div onClick={() => {navigate(`/user/${id}`);}} className="block px-6 py-2 text-black hover:bg-blue-500 hover:text-white hover:cursor-pointer rounded-t-lg">
+                        Profile
+                      </div>
+                    </li>
+                  ) : (
+                    <>
+                      <li>
+                        <Link to="/user/auth" className="block px-6 py-2 text-black hover:bg-blue-500 hover:text-white rounded-t-lg">
+                          Login
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/register" className="block px-6 py-2 text-black hover:bg-blue-500 hover:text-white rounded-b-lg">
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             )}

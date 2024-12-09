@@ -21,6 +21,19 @@ const App = () => {
                                 />
                             );
                         }
+                        else if (index == 16) {
+                            return (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    element={
+                                        <ProtectedRoute requiredRole={"any"}>
+                                            <Page />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                            );
+                        }
                         else return (
                             <Route
                                 key={index}

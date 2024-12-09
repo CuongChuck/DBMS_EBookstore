@@ -49,8 +49,8 @@ authRouter.get('/role', (request, response) => {
             jwt.verify(token, "jwt-secret-key", (err, decoded) => {
                 if (err) return response.json({message: "Authentication Error."});
                 const role = decoded.role;
-                if (role == 0) return response.json({role: "Role Admin"});
-                else return response.json({role: "Role User"});
+                if (role == 0) return response.json({role: "Role Admin", id: decoded.id});
+                else return response.json({role: "Role User", id: decoded.id});
             });
         }
     } catch (err) {
@@ -122,13 +122,47 @@ authRouter.post('/login', async (request, response) => {
                 const id = results[0].UserID;
                 const role = results[0].Role.readUInt8(0);
                 const token = jwt.sign({id, role}, "jwt-secret-key", {expiresIn: '1d'});
-                response.cookie('token', token);
-                return response.status(200).json({status: "Login Success"});
+                response.cookie('token', token, {sameSite:'none'});
+                return response.status(200).json({status: "Login Success", UserID: id});
             }
         });
     } catch (err) {
         console.error(err.message);
         response.status(500).json({status: "Failed"});
+    }
+});
+
+// Route for SELECT a User
+authRouter.get('/user/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const sql = `CALL GetUser(${id})`;
+        mysqlConnection.query(sql, (err, results, fields) => {
+            if (err) return response.status(404).send({message: err.message});
+            return response.status(200).json({
+                data: results[0],
+                role: results[0][0].Role.readUInt8(0)
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
+// Route for Delete a author based on ID
+authRouter.delete('/user/delete/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const sql = `CALL DeleteUser(?)`;
+        mysqlConnection.query(sql, [id], (err, results, fields) => {
+            if (err || results.affectedRows == 0) return response.status(404).json({message: "User not found"});
+            response.clearCookie('token');
+            return response.status(200).send({message: `User ${id} is deleted`});
+        });
+    } catch (err) {
+        console.error(err);
+        response.status(500).send({message: err.message}); 
     }
 });
 
