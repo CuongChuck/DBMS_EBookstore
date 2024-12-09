@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,6 +7,19 @@ const EditTranslator = () => {
     const [description, setDes] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/translator/${id}`)
+            .then((response) => {
+                setName(response.data.data[0][0].Name);
+                setDes(response.data.data[0][0].Description);
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("An error occurred when getting a translator");
+            })
+    }, [id]);
 
     const handleEditTranslator = () => {
         const data = { name, description };
@@ -20,7 +33,7 @@ const EditTranslator = () => {
                 alert("An error occurred when editing an translator");
             })
     };
-
+    
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-6">Edit Translator</h2>
