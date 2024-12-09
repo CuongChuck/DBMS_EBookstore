@@ -21,7 +21,8 @@ const AddAuthor = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
+        <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 py-12 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-center text-2xl font-bold mb-6">Add Author</h2>
             <div className="mb-4">
                 <label className="block mb-2 font-bold">Name</label>
@@ -45,6 +46,7 @@ const AddAuthor = () => {
                 <button onClick={handleAddAuthor} className="px-4 py-2 bg-blue-500 text-white rounded">Save</button>
                 <button onClick={() => {navigate('/author')}} className="px-4 py-2 bg-gray-500 text-white rounded">Cancel</button>
             </div>
+        </div>
         </div>
     )
 }
