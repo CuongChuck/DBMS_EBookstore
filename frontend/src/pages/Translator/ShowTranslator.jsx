@@ -18,19 +18,23 @@ const ShowTranslator = () => {
     }, [id])
 
     if (items.length === 0) {
-        return <div>Loading...</div>; // Show loading state or a message
+        return <div className="text-center text-gray-500">Loading...</div>; // Show loading state or a message
     }
 
     return (
-        <div>
-            <p>Name: {items[0][0].Name}</p>
-            <p>Description: {items[0][0].Description}</p>
-            <div>
-                <p>Books</p>
-                <ul>
+        <div className="max-w-4xl mx-auto p-4">
+            <div className="bg-white shadow-md rounded-lg p-6 mb-4">
+                <p className="text-2xl font-semibold mb-2">Name: {items[0][0].Name}</p>
+                <p className="text-gray-700 mb-4">Description: {items[0][0].Description}</p>
+            </div>
+            <div className="bg-white shadow-md rounded-lg p-6">
+                <p className="text-xl font-semibold mb-4">Books</p>
+                <ul className="list-disc list-inside">
                     {items[1].map((item, index) => {
                         return (
-                            <li key={index}><Link to={`/book/${item.BookID}`}>{item.BookName}</Link></li>
+                            <li key={index} className="mb-2">
+                                <Link to={`/book/${item.BookID}`} className="text-blue-500 hover:underline">{item.BookName}</Link>
+                            </li>
                         );
                     })}
                 </ul>

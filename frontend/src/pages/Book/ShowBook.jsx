@@ -24,7 +24,7 @@ const ShowBook = () => {
         bookRoleBased();
     }, [id])
     if (items.length === 0) {
-        return <div>items.length</div>; // Show loading state or a message
+        return <div>Loading...</div>;
     }
 
     return (
@@ -72,19 +72,19 @@ const ShowBook = () => {
                     {items[4].map((item, index) => {
                         return (
                             <li key={index}>{item.Language}</li>
-                        );
-                    })}
-                </ul>
+                        ))}
+                    </ul>
+                </div>
+                <p className="mb-2"><strong>Publication Year:</strong> {items[0][0].PublicationDate}</p>
+                <p className="mb-2"><strong>Quantity in stock:</strong> {items[0][0].QuantityStored}</p>
+                <p className="mb-2"><strong>Quantity sold:</strong> {items[0][0].QuantitySold}</p>
+                <p className="mb-2"><strong>Age Rating:</strong> {items[0][0].AgeRating}</p>
+                <p className="mb-2"><strong>Size:</strong> {items[0][0].Length} x {items[0][0].Width} x {items[0][0].Height}</p>
+                <p className="mb-2"><strong>Number of Pages:</strong> {items[0][0].PageCount}</p>
+                <p className="mb-2"><strong>Mass:</strong> {items[0][0].Mass}</p>
+                <p className="mb-2"><strong>Status:</strong> {items[0][0].Status}</p>
+                <p className="mb-2"><strong>Format:</strong> {items[0][0].Format}</p>
             </div>
-            <p>Publication Year: {items[0][0].PublicationDate}</p>
-            <p>Quantity in stock: {items[0][0].QuantityStored}</p>
-            <p>Quantity sold: {items[0][0].QuantitySold}</p>
-            <p>AgeRating: {items[0][0].AgeRating}</p>
-            <p>Size: {items[0][0].Length} x {items[0][0].Width} x {items[0][0].Height}</p>
-            <p>Number of Pages: {items[0][0].PageCount}</p>
-            <p>Mass: {items[0][0].Mass}</p>
-            <p>Status: {items[0][0].Status}</p>
-            <p>Format: {items[0][0].Format}</p>
         </div>
     )
 }

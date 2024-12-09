@@ -16,30 +16,37 @@ const AddCategory = () => {
             })
             .catch((err) => {
                 console.error(err);
-                alert("An error occurred when adding an category");
+                alert("An error occurred when adding a category");
             })
     };
 
     return (
-        <div>
-            <h2>Add Category</h2>
-            <div>
-                <label>Name</label>
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-6">Add Category</h2>
+            <div className="mb-4">
+                <label className="block text-gray-700">Name</label>
                 <input
                     type='text'
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            <div>
-                <label>Description</label>
+            <div className="mb-4">
+                <label className="block text-gray-700">Description</label>
                 <input
                     type='text'
                     value={description}
                     onChange={(e) => setDes(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            <button onClick={handleAddCategory}>Save</button>
+            <button
+                onClick={handleAddCategory}
+                className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+            >
+                Save
+            </button>
         </div>
     )
 }

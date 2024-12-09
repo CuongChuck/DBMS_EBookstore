@@ -19,7 +19,7 @@ const ShowAuthor = () => {
     }, [id]);
 
     if (items.length === 0) {
-        return <div>Loading...</div>; // Show loading state or a message
+        return <div>Loading...</div>;
     }
 
     return (
@@ -41,7 +41,7 @@ const ShowAuthor = () => {
                 </ul>
             </div>
         </div>
-    )
+    );
 }
 
 export default ShowAuthor

@@ -13,7 +13,7 @@ const DeleteCategory = () => {
             })
             .catch((err) => {
                 console.error(err);
-                alert("An error occurred when deleting an category");
+                alert("An error occurred when deleting a category");
             })
     };
 
