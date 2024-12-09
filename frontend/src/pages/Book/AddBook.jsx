@@ -15,8 +15,8 @@ const AddBook = () => {
 
     const handleAddBook = () => {
         const data = {
-            name, oriPrice, date, quantityStored, quantitySold,
-            description, sellPrice, publisher
+            name, oriPrice, quantityStored, publisher, date,
+            quantitySold, description, sellPrice
         }
         axios
             .post('http://localhost:8080/book/add', data)
