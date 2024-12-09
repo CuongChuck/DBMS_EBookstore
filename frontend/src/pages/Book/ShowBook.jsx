@@ -35,7 +35,7 @@ const ShowBook = () => {
                 <p className="mb-2"><strong>Selling Price:</strong> ${items[0][0].SellingPrice}</p>
                 <p className="mb-2"><strong>Publisher:</strong> {items[0][0].PublisherName}</p>
                 {!role && (
-                    <p className="mb-2"><strong>Original Price:</strong> ${items[0][0].OriginalPrice}</p>
+                    <p className="mb-2"><strong>Original Price:</strong> VND{items[0][0].OriginalPrice}</p>
                 )}
                 <div className="mb-4">
                     <h2 className="text-xl font-semibold">Authors</h2>

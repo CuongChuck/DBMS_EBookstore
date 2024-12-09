@@ -21,7 +21,8 @@ const AddTranslator = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 py-12 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-6">Add Translator</h2>
             <div className="mb-4">
                 <label className="block text-gray-700">Name</label>
@@ -48,6 +49,7 @@ const AddTranslator = () => {
                 Save
             </button>
         </div>
+    </div>
     )
 }
 

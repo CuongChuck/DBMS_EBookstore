@@ -15,25 +15,40 @@ const AddBookTranslated = () => {
             })
             .catch((err) => {
                 console.error(err);
-                alert("An error occurred when adding an book translated");
+                alert("An error occurred when adding a book translated");
             })
     };
 
     return (
-        <div>
-            <h2>Add book translated</h2>
-            <div>
-                <label>Book ID</label>
+        <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 py-12 px-4">
+            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">Add Book Translated</h2>
+            <div className="mb-4">
+                <label className="block text-gray-700">Book ID</label>
                 <input
                     type='number'
                     value={bookid}
                     onChange={(e) => setBookID(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
-            <button onClick={handleAddBookTranslated}>Save</button>
-            <button onClick={() => {navigate('/author')}}>Cancel</button>
+            <div className="flex justify-between">
+                <button
+                    onClick={handleAddBookTranslated}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                >
+                    Save
+                </button>
+                <button
+                    onClick={() => { navigate('/author') }}
+                    className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                >
+                    Cancel
+                </button>
+            </div>
         </div>
+    </div>
     )
 }
 
-export default AddBookTranslated
+export default AddBookTranslated;
