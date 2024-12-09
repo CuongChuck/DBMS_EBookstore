@@ -11,8 +11,8 @@ const EditAuthor = () => {
     useEffect(() => {
         axios.get(`http://localhost:8080/author/${id}`)
             .then((response) => {
-                setName(response.data.name);
-                setDes(response.data.description);
+                setName(response.data.data[0][0].Name);
+                setDes(response.data.data[0][0].Description);
             })
             .catch((err) => {
                 console.error(err);
