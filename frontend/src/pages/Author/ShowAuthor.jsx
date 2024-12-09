@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const ShowAuthor = () => {
     const [items, setItems] = useState([]);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -15,7 +16,7 @@ const ShowAuthor = () => {
             .catch((err) => {
                 return (<div>{err.message}</div>);
             })
-    }, [id])
+    }, [id]);
 
     if (items.length === 0) {
         return <div>Loading...</div>; // Show loading state or a message
@@ -30,7 +31,11 @@ const ShowAuthor = () => {
                 <ul>
                     {items[1].map((item, index) => {
                         return (
-                            <li key={index}><Link to={`/book/${item.BookID}`}>{item.BookName}</Link></li>
+                            <li key={index}>
+                                <Link to={`/book/${item.BookID}`}>{item.BookName}</Link>
+                                <span style={{marginLeft:'30px'}} />
+                                <button onClick={() => {navigate(`/author/delete-book/${id}/${item.BookID}`)}}>Delete</button>
+                            </li>
                         );
                     })}
                 </ul>

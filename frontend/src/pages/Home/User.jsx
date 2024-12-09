@@ -1,20 +1,9 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const User = () => {
-    const [role, setRole] = useState(null);
     const navigate = useNavigate();
-    
-    useEffect(() => {
-        axios
-            .get('http://localhost:8080/role')
-            .then((response) => {
-                if (response.data.role === "Role Admin") setRole(false);
-                else if (response.data.role === "Role User") setRole(true);
-            })
-    }, []);
-
     const handleLogOut = () => {
         axios
             .get('http://localhost:8080/logout')

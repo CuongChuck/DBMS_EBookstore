@@ -62,20 +62,26 @@ const ShowAuthorList = () => {
                                         Details
                                     </button>
                                     {!role && (
-                                        <button
-                                            onClick={() => navigate(`/author/edit/${item.AuthorID}`)}
-                                            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-                                        >
-                                            Edit
-                                        </button>
-                                    )}
-                                    {!role && (
-                                        <button
-                                            onClick={() => navigate(`/author/delete/${item.AuthorID}`)}
-                                            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                                        >
-                                            Delete
-                                        </button>
+                                        <>
+                                            <button
+                                                onClick={() => navigate(`/author/add-book/${item.AuthorID}`)}
+                                                className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                            >
+                                                Add book
+                                            </button>
+                                            <button
+                                                onClick={() => navigate(`/author/edit/${item.AuthorID}`)}
+                                                className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => navigate(`/author/delete/${item.AuthorID}`)}
+                                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
                                     )}
                                 </td>
                             </tr>
