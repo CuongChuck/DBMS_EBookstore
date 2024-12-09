@@ -79,7 +79,7 @@ authRouter.post('/register', async (request, response) => {
         }
         else values.push(1);
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `User ${values[1]} is inserted`
             });

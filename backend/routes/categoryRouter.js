@@ -14,7 +14,7 @@ categoryRouter.post('/add', async (request, response) => {
         const sql = `INSERT INTO Category(Name, Description) VALUES(?,?)`;
         const values = [request.body.name, request.body.description];
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `Category ${values[0]} is inserted`
             });

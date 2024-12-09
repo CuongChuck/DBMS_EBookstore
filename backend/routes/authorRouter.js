@@ -14,7 +14,7 @@ authorRouter.post('/add', async (request, response) => {
         const sql = `CALL AddAuthor(?,?)`;
         const values = [request.body.name, request.body.description];
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `Author ${values[0]} is inserted`
             });

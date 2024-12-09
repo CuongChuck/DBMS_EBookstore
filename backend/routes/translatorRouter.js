@@ -14,7 +14,7 @@ translatorRouter.post('/add', async (request, response) => {
         const sql = `INSERT INTO Translator(Name, Description) VALUES(?,?)`;
         const values = [request.body.name, request.body.description];
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `Translator ${values[0]} is inserted`
             });
@@ -37,7 +37,7 @@ translatorRouter.post('/add-book/:id', async (request, response) => {
         const sql = `CALL AddBookTranslator(?,?)`;
         const values = [id, request.body.bookid];
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `Book ${values[1]} is added to Translator ${values[0]}`
             });
@@ -55,7 +55,7 @@ translatorRouter.delete('/delete-book/:translatorid/:bookid', async (request, re
         const sql = `CALL DeleteBookTranslator(?,?)`;
         const values = [translatorid, bookid];
         mysqlConnection.query(sql, values, (err, results, fields) => {
-            if (err) return console.err(err.message);
+            if (err) return console.error(err.message);
             return response.status(201).send({
                 message: `Book ${values[1]} is deleted from Translator ${values[0]}`
             });
