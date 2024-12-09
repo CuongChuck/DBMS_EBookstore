@@ -40,7 +40,7 @@ const AddBookTranslated = () => {
                     Save
                 </button>
                 <button
-                    onClick={() => { navigate('/author') }}
+                    onClick={() => { navigate('/translator') }}
                     className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
                 >
                     Cancel

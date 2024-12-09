@@ -12,7 +12,7 @@ const App = () => {
                 <Routes>
                     {routes.map((route, index) => {
                         const Page = route.component;
-                        if (index > 15) {
+                        if (index > 16) {
                             return (
                                 <Route
                                     key={index}

@@ -62,6 +62,12 @@ const ShowTranslatorList = () => {
                                 {!role && (
                                     <>
                                         <button
+                                            onClick={() => navigate(`/translator/add-book/${item.TranslatorID}`)}
+                                            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                                        >
+                                            Add book
+                                        </button>
+                                        <button
                                             onClick={() => navigate(`/translator/edit/${item.TranslatorID}`)}
                                             className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
                                         >

@@ -25,6 +25,47 @@ translatorRouter.post('/add', async (request, response) => {
     }
 });
 
+// Route for INSERT Book Translator
+translatorRouter.post('/add-book/:id', async (request, response) => {
+    try {
+        if (!request.body.bookid) {
+            return response.status(400).send({
+                message: "Send all required fields: bookid"
+            });
+        }
+        const { id } = request.params;
+        const sql = `CALL AddBookTranslator(?,?)`;
+        const values = [id, request.body.bookid];
+        mysqlConnection.query(sql, values, (err, results, fields) => {
+            if (err) return console.err(err.message);
+            return response.status(201).send({
+                message: `Book ${values[1]} is added to Translator ${values[0]}`
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
+// Route for DELETE Book Author
+translatorRouter.delete('/delete-book/:translatorid/:bookid', async (request, response) => {
+    try {
+        const { translatorid, bookid } = request.params;
+        const sql = `CALL DeleteBookTranslator(?,?)`;
+        const values = [translatorid, bookid];
+        mysqlConnection.query(sql, values, (err, results, fields) => {
+            if (err) return console.err(err.message);
+            return response.status(201).send({
+                message: `Book ${values[1]} is deleted from Translator ${values[0]}`
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for SELECT all Translators
 translatorRouter.get('/', async (request, response) => {
     try {

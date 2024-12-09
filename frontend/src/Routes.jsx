@@ -27,6 +27,7 @@ import ShowCategory from './pages/Category/ShowCategory';
 import ShowTranslator from './pages/Translator/ShowTranslator';
 import DeleteBook from './pages/Book/DeleteBook';
 import EditBook from './pages/Book/EditBook';
+import AddBookTranslated from './pages/Translator/AddBookTranslated';
 
 const routes = [
     { path: '/publisher/add', component: AddPublisher },
@@ -36,6 +37,7 @@ const routes = [
     { path: '/author/delete/:id', component: DeleteAuthor },
     { path: '/author/edit/:id', component: EditAuthor },
     { path: '/translator/add', component: AddTranslator },
+    { path: '/translator/add-book/:id', component: AddBookTranslated },
     { path: '/translator/delete/:id', component: DeleteTranslator },
     { path: '/translator/edit/:id', component: EditTranslator },
     { path: '/category/add', component: AddCategory },
