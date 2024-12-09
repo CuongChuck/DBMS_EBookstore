@@ -11,7 +11,7 @@ const AddBookTranslated = () => {
         axios
             .post(`http://localhost:8080/translator/add-book/${id}`, { bookid })
             .then(() => {
-                navigate('/author');
+                navigate('/translator');
             })
             .catch((err) => {
                 console.error(err);

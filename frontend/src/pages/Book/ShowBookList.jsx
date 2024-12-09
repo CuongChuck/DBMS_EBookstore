@@ -6,6 +6,7 @@ const ShowBookList = () => {
     const [role, setRole] = useState(true);
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
+    axios.defaults.withCredentials = true;
     useEffect(() => {
         const bookListRoleBased = async () => {
             try {
