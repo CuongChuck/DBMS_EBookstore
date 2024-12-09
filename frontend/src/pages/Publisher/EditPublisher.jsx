@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,6 +7,19 @@ const EditPublisher = () => {
     const [location, setLocation] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/publisher/${id}`)
+            .then((response) => {
+                setName(response.data.data[0][0].Name);
+                setLocation(response.data.data[0][0].Location);
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("An error occurred when getting a publisher");
+            })
+    }, [id]);
 
     const handleEditPublisher = () => {
         const data = {
