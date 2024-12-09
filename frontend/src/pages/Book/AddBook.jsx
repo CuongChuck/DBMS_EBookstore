@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AddBook = () => {
     const [name, setName] = useState('');
@@ -11,6 +11,7 @@ const AddBook = () => {
     const [description, setDescription] = useState('');
     const [sellPrice, setSellPrice] = useState(0);
     const [publisher, setPublisher] = useState(null);
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const handleAddBook = () => {
@@ -19,7 +20,7 @@ const AddBook = () => {
             quantitySold, description, sellPrice
         }
         axios
-            .post('http://localhost:8080/book/add', data)
+            .post(`http://localhost:8080/book/add/${id}`, data)
             .then(() => {
                 navigate('/book');
             })

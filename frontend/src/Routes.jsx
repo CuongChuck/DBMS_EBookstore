@@ -45,7 +45,7 @@ const routes = [
     { path: '/category/add', component: AddCategory },
     { path: '/category/delete/:id', component: DeleteCategory },
     { path: '/category/edit/:id', component: EditCategory },
-    { path: '/book/add', component: AddBook },
+    { path: '/book/add/:id', component: AddBook },
     { path: '/book/delete/:id', component: DeleteBook },
     { path: '/book/edit/:id', component: EditBook },
     { path: '/user', component: User },

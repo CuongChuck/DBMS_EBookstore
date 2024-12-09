@@ -4,7 +4,7 @@ import { mysqlConnection } from '../config.js';
 const bookRouter = express.Router();
 
 // Route for INSERT book
-bookRouter.post('/add', async (request, response) => {
+bookRouter.post('/add/:id', async (request, response) => {
     try {
         if (
             !request.body.name || !request.body.oriPrice ||
@@ -14,7 +14,8 @@ bookRouter.post('/add', async (request, response) => {
                 message: "Send all required fields: name, original price, quantityStored, publisherID"
             });
         }
-        const sql = `CALL AddBook(?,?,?,?,?,?,?,?)`;
+        const { id } = request.params;
+        const sql = `CALL AddBook(${id},?,?,?,?,?,?,?,?)`;
         const values = [
             request.body.name, request.body.oriPrice, request.body.quantityStored, request.body.publisher,
             request.body.date, request.body.quantitySold, request.body.description, request.body.sellPrice
@@ -22,7 +23,7 @@ bookRouter.post('/add', async (request, response) => {
         mysqlConnection.query(sql, values, (err, results, fields) => {
             if (err) return console.error(err.message);
             return response.status(201).send({
-                message: `book ${values[0]} is inserted`
+                message: `book ${values[0]} is inserted with author ${id}`
             });
         });
     } catch (err) {

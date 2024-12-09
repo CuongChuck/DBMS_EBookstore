@@ -26,14 +26,6 @@ const ShowBookList = () => {
         <div className="min-h-screen bg-gray-100 py-12 px-4">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-3xl font-semibold text-gray-800">Book List</h2>
-                {!role && (
-                    <button
-                        onClick={() => navigate('/book/add')}
-                        className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                    >
-                        Add Book
-                    </button>
-                )}
             </div>
 
             <div className="overflow-x-auto bg-white shadow-lg rounded-lg">

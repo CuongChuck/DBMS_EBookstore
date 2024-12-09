@@ -24,7 +24,7 @@ const ProtectedRoute = ({children, requiredRole}) => {
             }
         }
         authenticate();
-    }, [requiredRole]);
+    }, []);
     
     if (adminAuthorized || userAuthorized) return children;
 }
