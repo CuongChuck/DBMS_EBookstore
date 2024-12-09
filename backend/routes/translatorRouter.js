@@ -49,7 +49,7 @@ translatorRouter.post('/add-book/:id', async (request, response) => {
 });
 
 // Route for DELETE Book Author
-translatorRouter.delete('/delete-book/:translatorid/:bookid', async (request, response) => {
+translatorRouter.delete('/:translatorid/delete-book/:bookid', async (request, response) => {
     try {
         const { translatorid, bookid } = request.params;
         const sql = `CALL DeleteBookTranslator(?,?)`;

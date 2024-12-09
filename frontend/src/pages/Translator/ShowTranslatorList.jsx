@@ -23,6 +23,16 @@ const ShowTranslatorList = () => {
         }
         translatorListRoleBased();
     }, []);
+
+    const handleAddBook = (id) => {
+        if (window.confirm("Add existing book?")) {
+            navigate(`/translator/add-book/${id}`);
+        }
+        else {
+            navigate(`/book/add/${id}`);
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 py-12 px-4">
         <div className="flex justify-between items-center mb-6">
@@ -62,7 +72,7 @@ const ShowTranslatorList = () => {
                                 {!role && (
                                     <>
                                         <button
-                                            onClick={() => navigate(`/translator/add-book/${item.TranslatorID}`)}
+                                            onClick={() => handleAddBook(item.TranslatorID)}
                                             className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                                         >
                                             Add book

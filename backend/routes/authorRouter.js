@@ -25,6 +25,29 @@ authorRouter.post('/add', async (request, response) => {
     }
 });
 
+// Route for INSERT Book Translator
+authorRouter.post('/add-book/:id', async (request, response) => {
+    try {
+        if (!request.body.bookid) {
+            return response.status(400).send({
+                message: "Send all required fields: bookid"
+            });
+        }
+        const { id } = request.params;
+        const sql = `CALL AddBookAuthor(?,?)`;
+        const values = [id, request.body.bookid];
+        mysqlConnection.query(sql, values, (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(201).send({
+                message: `Book ${values[1]} is added to Translator ${values[0]}`
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for SELECT all authors
 authorRouter.get('/', async (request, response) => {
     try {
@@ -87,6 +110,21 @@ authorRouter.delete('/delete/:id', async (request, response) => {
         mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Author not found"});
             return response.status(200).send({message: `Author ${id} is deleted`});
+        });
+    } catch (err) {
+        console.error(err);
+        response.status(500).send({message: err.message}); 
+    }
+});
+
+// Route for Delete a author based on ID
+authorRouter.delete('/:authorid/delete-book/:bookid', async (request, response) => {
+    try {
+        const { authorid, bookid } = request.params;
+        const sql = `CALL DeleteBookAuthor(?,?)`;
+        mysqlConnection.query(sql, [authorid, bookid], (err, results, fields) => {
+            if (err || results.affectedRows == 0) return response.status(404).json({message: "Author or book not found"});
+            return response.status(200).send({message: `Book ${bookid} is deleted from author ${authorid}`});
         });
     } catch (err) {
         console.error(err);

@@ -25,6 +25,29 @@ categoryRouter.post('/add', async (request, response) => {
     }
 });
 
+// Route for INSERT Book Translator
+categoryRouter.post('/add-book/:id', async (request, response) => {
+    try {
+        if (!request.body.bookid) {
+            return response.status(400).send({
+                message: "Send all required fields: bookid"
+            });
+        }
+        const { id } = request.params;
+        const sql = `CALL AddBookCategory(?,?)`;
+        const values = [id, request.body.bookid];
+        mysqlConnection.query(sql, values, (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(201).send({
+                message: `Book ${values[1]} is added to Category ${values[0]}`
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for SELECT all Categorys
 categoryRouter.get('/', async (request, response) => {
     try {
@@ -85,6 +108,21 @@ categoryRouter.delete('/delete/:id', async (request, response) => {
         mysqlConnection.query(sql, [id], (err, results, fields) => {
             if (err || results.affectedRows == 0) return response.status(404).json({message: "Category not found"});
             return response.status(200).send({message: `Category ${id} is deleted`});
+        });
+    } catch (err) {
+        console.error(err);
+        response.status(500).send({message: err.message}); 
+    }
+});
+
+// Route for Delete a author based on ID
+categoryRouter.delete('/:categoryid/delete-book/:bookid', async (request, response) => {
+    try {
+        const { categoryid, bookid } = request.params;
+        const sql = `CALL DeleteBookCategory(?,?)`;
+        mysqlConnection.query(sql, [categoryid, bookid], (err, results, fields) => {
+            if (err || results.affectedRows == 0) return response.status(404).json({message: "Category or book not found"});
+            return response.status(200).send({message: `Book ${bookid} is deleted from category ${categoryid}`});
         });
     } catch (err) {
         console.error(err);

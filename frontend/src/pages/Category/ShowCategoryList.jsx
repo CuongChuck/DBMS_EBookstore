@@ -23,6 +23,16 @@ const ShowCategoryList = () => {
         }
         categoryListRoleBased();
     }, []);
+
+    const handleAddBook = (id) => {
+        if (window.confirm("Add existing book?")) {
+            navigate(`/category/add-book/${id}`);
+        }
+        else {
+            navigate(`/book/add/${id}`);
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 py-12 px-4">
         <div className="flex justify-between items-center mb-6">
@@ -62,6 +72,12 @@ const ShowCategoryList = () => {
                                 </button>
                                 {!role && (
                                     <>
+                                        <button
+                                            onClick={() => handleAddBook(item.CategoryID)}
+                                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                        >
+                                            Add book
+                                        </button>
                                         <button
                                             onClick={() => navigate(`/category/edit/${item.CategoryID}`)}
                                             className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
