@@ -28,9 +28,6 @@ const ShowCategoryList = () => {
         if (window.confirm("Add existing book?")) {
             navigate(`/category/add-book/${id}`);
         }
-        else {
-            navigate(`/book/add/${id}`);
-        }
     }
 
     return (

@@ -5,6 +5,7 @@ import { Navigate } from 'react-router-dom';
 const ProtectedRoute = ({children, requiredRole}) => {
     const [adminAuthorized, setAdminAuthorized] = useState(null);
     const [userAuthorized, setUserAuthorized] = useState(null);
+    const [authorized, setAuthorized] = useState(null);
     useEffect(() => {
         const authenticate = async () => {
             try {
@@ -16,9 +17,11 @@ const ProtectedRoute = ({children, requiredRole}) => {
                     setAdminAuthorized(true);
                 else setAdminAuthorized(false);
                 if ((userResponse.data.status === "User Authorized" || adminResponse.data.status === "Admin Authorized")
-                    && requiredRole == "any") {
+                    && requiredRole == "any") 
+                    setAuthorized(true);
+                else setAuthorized(false);
+                if (userResponse.data.status === "User Authorized" && requiredRole === "user")
                     setUserAuthorized(true);
-                }
                 else setUserAuthorized(false);
             } catch (err) {
                 console.error(err);
@@ -27,7 +30,7 @@ const ProtectedRoute = ({children, requiredRole}) => {
         authenticate();
     }, []);
     
-    if (adminAuthorized || userAuthorized) return children;
+    if (adminAuthorized || userAuthorized || authorized) return children;
 }
 
 export default ProtectedRoute

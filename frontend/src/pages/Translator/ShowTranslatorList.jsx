@@ -28,9 +28,6 @@ const ShowTranslatorList = () => {
         if (window.confirm("Add existing book?")) {
             navigate(`/translator/add-book/${id}`);
         }
-        else {
-            navigate(`/book/add/${id}`);
-        }
     }
 
     return (

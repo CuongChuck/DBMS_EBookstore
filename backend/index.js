@@ -38,3 +38,20 @@ app.use('/translator', translatorRouter);
 app.use('/category', categoryRouter);
 app.use('/book', bookRouter);
 app.use('/', authRouter);
+
+// Route for SELECT all books
+app.get('/rating/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const sql = `SELECT GetAverageRating(${id}) AS AvgRating`;
+        mysqlConnection.query(sql, [true], (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(200).json({
+                data: results
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});

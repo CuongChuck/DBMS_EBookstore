@@ -30,6 +30,7 @@ import EditBook from './pages/Book/EditBook';
 import AddBookTranslated from './pages/Translator/AddBookTranslated';
 import AddBookAuthored from './pages/Author/AddBookAuthored';
 import AddBookCategory from './pages/Category/AddBookCategory';
+import AddReview from './pages/Book/AddReview';
 
 const routes = [
     { path: '/publisher/add', component: AddPublisher },
@@ -50,6 +51,7 @@ const routes = [
     { path: '/book/add/:id', component: AddBook },
     { path: '/book/delete/:id', component: DeleteBook },
     { path: '/book/edit/:id', component: EditBook },
+    { path: '/book/:bookid/review/:userid', component: AddReview },
     { path: '/user/:id', component: User },
     { path: '/', component: Home },
     { path: '/register', component: Register },

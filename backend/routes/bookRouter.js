@@ -33,6 +33,33 @@ bookRouter.post('/add/:id', async (request, response) => {
     }
 });
 
+// Route for INSERT book
+bookRouter.post('/:bookid/add/:userid', async (request, response) => {
+    try {
+        if (
+            !request.body.rating
+        ) {
+            return response.status(400).send({
+                message: "Send all required fields: rating"
+            });
+        }
+        const { bookid, userid } = request.params;
+        const sql = `INSERT INTO Review(BookID, UserID, Rating) VALUES(?,?,?)`
+        const values = [
+            bookid, userid, request.body.rating
+        ];
+        mysqlConnection.query(sql, values, (err, results, fields) => {
+            if (err) return console.error(err.message);
+            return response.status(201).send({
+                message: `Review for book ${values[0]} is inserted`
+            });
+        });
+    } catch (err) {
+        console.error(err.message);
+        response.status(500).send({message: err.message});
+    }
+});
+
 // Route for SELECT all books
 bookRouter.get('/', async (request, response) => {
     try {
